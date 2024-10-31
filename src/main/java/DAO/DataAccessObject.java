@@ -38,6 +38,7 @@ public class DataAccessObject {
     public DataAccessObject() throws ClassNotFoundException,SQLException{
         Class.forName(DRIVER);
         System.out.println("Comentario prueba");
+        System.out.println("Comentario para karely");
         connection= DriverManager.getConnection(URL,USER,PASSWORD);
        System.out.println("Conectado");
     }
