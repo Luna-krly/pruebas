@@ -22,6 +22,7 @@ public class DataAccessObject {
 
     private static final long serialVersionUID = 1L;
     CallableStatement stmt=null;
+    
     //CONEXION BD DIRVER, URL, USUARIO, CONTRASEÑA Y PUERTO
     private static final String DRIVER ="com.mysql.cj.jdbc.Driver"; //com.microsoft.jdbc.sqlserver.SQLServerDriver///com.mysql.cj.jbc.Driver
 //    private static final String URL="jdbc:mysql://50.192.40.245:3306/facturacion?allowPublicKeyRetrieval=true&useSSL=false";
@@ -36,6 +37,7 @@ public class DataAccessObject {
     //INGESAR A LA BASE DE DATOS
     public DataAccessObject() throws ClassNotFoundException,SQLException{
         Class.forName(DRIVER);
+        System.out.println("Comentario prueba");
         connection= DriverManager.getConnection(URL,USER,PASSWORD);
        System.out.println("Conectado");
     }
