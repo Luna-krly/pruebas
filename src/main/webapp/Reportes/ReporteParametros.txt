@@ -1,0 +1,49 @@
+<%-- 
+    Document   : GReporte
+    Created on : 22/09/2023, 10:39:04 AM
+    Author     : LZAMUDIO
+--%>
+
+<%@page import="net.sf.jasperreports.engine.JasperExportManager"%>
+<%@page import="net.sf.jasperreports.engine.JasperPrint"%>
+<%@page import="net.sf.jasperreports.engine.*"%>
+<%@page import="net.sf.jasperreports.engine.fill.*"%>
+<%@page import="net.sf.jasperreports.engine.JasperFillManager"%>
+<%@page import="net.sf.jasperreports.engine.JREmptyDataSource"%>
+<%@page import="net.sf.jasperreports.engine.JasperCompileManager"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="java.util.Date"%>
+
+<%@page import="java.util.HashMap"%>
+<%@page import="java.io.File"%>
+
+
+
+ <%      
+            try{
+            //create a HashMap for Passing data to jasper report 
+           HashMap employeeReportMap = new HashMap<String, Object>();
+           employeeReportMap.put("dato","40565");
+        
+            // Compila el archivo JasperReport (.jrxml) en un archivo .jasper
+            JasperCompileManager.compileReportToFile("C:\\Users\\Serv_Social\\JaspersoftWorkspace\\MyReports\\Prueba.jrxml");
+
+            // Llena el reporte con datos y parámetros
+            JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Serv_Social\\JaspersoftWorkspace\\MyReports\\Parametro.jasper", employeeReportMap, new JREmptyDataSource());
+            response.setContentType("application/PDF");
+            // Exporta el reporte a un archivo PDF
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            
+            // Cierra la respuesta después de escribir el PDF
+            response.getOutputStream();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+            out.clear(); // where out is a JspWriter
+            out = pageContext.pushBody();
+            }catch(Exception ex){
+                System.out.println("Ocurrio un error al generar reporte: " + ex);
+            }
+            
+        %>
+

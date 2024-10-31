@@ -1,0 +1,86 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 14 mar 2024, 15:33:55
+    Author     : Ing. Evelyn Leilani Avendaño 
+    Created on : 22 feb 2024, 11:35:32
+    Author     : Lezly Oliván
+*/
+
+
+html,
+body {
+    height: 100%;
+}
+
+@media (max-width: 1600px) {
+    .fontcontenido {
+        font-size: 90%;
+    }
+
+    .fontbtn {
+        font-size: 75%;
+    }
+
+    .fonttext {
+        font-size: 70%;
+    }
+
+    .fontmsg {
+        font-size: 65%;
+    }
+
+    .imglogo {
+        width: 140px;
+        height: 70px !important;
+    }
+}
+
+.stc {
+    font-family: 'METRO-DF', sans-serif;
+    /* Aplica la fuente en tu página */
+}
+
+@font-face {
+    font-family: 'METRO-DF';
+    src: url('METRO-DF.TTF') format('truetype');
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#datetime {
+    right: 15px;
+    font-size: 14px;
+}
+
+
+.fontformulario {
+    font-family: 'Montserrat-Medium', sans-serif !important; /* Aplica la nueva fuente */
+    color:black;
+}
+
+@font-face {
+    font-family: 'Montserrat-Medium' !important; /* Nombre de la fuente */
+    src: url('Montserrat-Medium.ttf') format('truetype') !important; /* Ruta al archivo de la fuente y su formato */
+}
