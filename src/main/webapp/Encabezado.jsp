@@ -363,9 +363,13 @@ if (sesionUsuario  != null && sesionUsuario .getAttribute("usuario") != null) {
                         <li class="nav-item">
                             <a class="nav-link" href="autorizaciones.jsp" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#myModal">Autorizaciones</a>
                         </li>
+                        <!--  <li class="nav-item"> </li> -->
+                        
+                        <!-- CATALOGO ADMINISTRAR USUARIOS, el href debe ir redirigido al jsp correspondiente-->
                         <li class="nav-item">
-
+                            <a class="nav-link" href="Admin/AdminUsuarios.jsp" >Administrar Usuarios</a>
                         </li>
+                        <!---------------------------------------------------------------->
                         <li class="nav-item" id="timeset" hidden="true">
                             <div class="mx-5" style="color:red;font-size: 25px;">
                                 <a id="minutes">15</a><a>:</a><a id="seconds">00</a>
