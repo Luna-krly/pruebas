@@ -20,6 +20,8 @@ public class Obj_Admin_usuario {
     String id_area;
     String id_perfil;
     String clave;
+    String nombre_area;
+    String nombre_perfil;
 
     public String getId_acc() {
         return id_acc;
@@ -99,6 +101,22 @@ public class Obj_Admin_usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public String getNombre_area() {
+        return nombre_area;
+    }
+
+    public void setNombre_area(String nombre_area) {
+        this.nombre_area = nombre_area;
+    }
+
+    public String getNombre_perfil() {
+        return nombre_perfil;
+    }
+
+    public void setNombre_perfil(String nombre_perfil) {
+        this.nombre_perfil = nombre_perfil;
     }
     
     
