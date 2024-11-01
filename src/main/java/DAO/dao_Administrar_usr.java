@@ -4,14 +4,20 @@
  */
 package DAO;
 
+import Objetos.Obj_Admin_usuario;
 import Objetos.obj_Mensaje;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author PC
  */
 public class dao_Administrar_usr extends DataAccessObject {
+    
 
     private static final long serialVersionUID = 1L;
 
@@ -59,4 +65,51 @@ public class dao_Administrar_usr extends DataAccessObject {
             return msj;   
     }
 }
+        public List<Obj_Admin_usuario> Listar() throws SQLException  {
+        System.out.println("-----acceso_usuario.Mostrar lista()-----");
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+	Obj_Admin_usuario admUser = null;
+        List<Obj_Admin_usuario> usuarioslista = new ArrayList<>();
+        
+
+      String sql = "SELECT u.*, a.id_perfil, ta.nombre_area , tp.nombre_perfil " +
+             "FROM usuarios u " +
+             "JOIN accesos a ON u.id_usuarios = a.id_usuario " +
+             "JOIN tabla_areas ta ON u.id_area = ta.id_area " +
+             "JOIN tabla_perfiles tp ON a.id_perfil = tp.id_perfil " +
+             "WHERE u.estatus = '1'";
+       
+        try {
+        //conexion
+        stmt = prepareStatement(sql);
+        rs = stmt.executeQuery();
+        System.out.println("Administrar_usr - EJECUTA SENTENCIA");
+            
+        while(rs.next()){
+
+            admUser = new Obj_Admin_usuario();
+            admUser.setId_usu(rs.getString("id_usuario"));
+            admUser.setOpcion(rs.getString("opcion"));
+            admUser.setUsuario(rs.getString("usuario"));
+            admUser.setNombre(rs.getString("nombre"));
+            admUser.setAp_p(rs.getString("apaterno"));
+            admUser.setAp_m(rs.getString("amaterno"));
+            admUser.setId_area(rs.getString("id_area"));
+            admUser.setId_perfil(rs.getString("id_perfil"));
+            admUser.setClave(rs.getString("clave"));
+            usuarioslista.add(admUser);
+          }
+            
+            return usuarioslista;
+
+        } catch (Exception ex) {
+            System.out.println("Ocurrio un error al mandar la lista de usuarios") ;
+            System.out.println("Excepcion: " + ex);
+            System.out.println("Mensaje: " + ex.getMessage());
+           
+            return null;
+        }
+
+    }
 }
