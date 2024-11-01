@@ -278,88 +278,37 @@ function filterTable() {
 }
 
 //Funcion para llenar el formulario cuando se hace clic en una fila 
-document.addEventListener('DOMContentLoaded', function () {
-            // Obtener la tabla y el formulario
-            var tabla = document.getElementById('datos');
-            var formulario = document.getElementById('formulario');
+//Este código si permite subir los datos de la tabla a los input
+function seleccionarFila(fila) {
+    // Obtiene los datos de cada columna de la fila seleccionada
+    const nombre = fila.cells[0].textContent;
+    const apellidoPaterno = fila.cells[1].textContent;
+    const apellidoMaterno = fila.cells[2].textContent;
+    const area = fila.cells[4].textContent;
+    const perfil = fila.cells[6].textContent;
+    const usuario = fila.cells[7].textContent;
+    
+    // Asigna los valores a los inputs del formulario
+    document.getElementById('nombre').value = nombre;
+    document.getElementById('apellido_paterno').value = apellidoPaterno;
+    document.getElementById('apellido_materno').value = apellidoMaterno;
+    document.getElementById('area').value = area;
+    document.getElementById('perfil').value = perfil;
+    document.getElementById('usuario').value = usuario;
 
+    // Muestra los botones "Modificar" y "Eliminar", y oculta el botón "Guardar"
+    document.getElementById('Guardar').style.display = 'none';
+    document.getElementById('Modificar').style.display = 'inline-block';
+    document.getElementById('Estatus').style.display = 'inline-block';
+}
 
-            // Añadir un evento de clic a las filas de la tabla
-            tabla.addEventListener('click', function (event) {
-                // Verificar si se hizo clic en una celda de la fila
-                if (event.target.tagName === 'TD') {
-                    // Obtener la fila de la celda clicada
-                    var fila = event.target.parentNode;
-
-
-                    if (tabla.querySelector('.selected')) {
-                        tabla.querySelector('.selected').classList.remove('selected');
-                    }
-                    fila.classList.add("selected");
-
-
-                    document.querySelector('#Guardar').style.display = "none";
-                    document.querySelector('#Modificar').style.display = "block";
-                    document.querySelector('#Estatus').style.display = "block";
-                
-                    // Obtener los datos de la fila
-                    //let idConcepto = fila.querySelector('.id-concepto').innerText;
-                    let nombre = fila.querySelector('.texto-largo:nth-child(1)').innerText;
-                    let apellido_paterno = fila.querySelector('.texto-largo:nth-child(2)').innerText;
-                    //let dataValue = document.querySelector('#ListTipoIngreso option[value="' + tipoIngreso + '"]').getAttribute("data-value");
-                    let apellido_materno = fila.querySelector('.texto-largo:nth-child(3)').innerText;
-                    let area = fila.querySelector('.texto-largo:nth-child(4)').innerText;
-                    let perfil = fila.querySelector('.texto-largo:nth-child(5)').innerText;
-                    let usuario = fila.querySelector('.texto-largo:nth-child(6)').innerText;
-
-                    // Ingresa los valores a los cuadros de texto
-                    //formulario.querySelector("#idConcepto").value = idConcepto;
-                    formulario.querySelector("#nombre").value = nombre;
-                    //formulario.querySelector("#nombreConcepto").readOnly = true;
-                    //formulario.querySelector("#tipoIngreso").value = dataValue;
-                    formulario.querySelector("#apellido_paterno").value = apellido_paterno;
-                    formulario.querySelector("#apellido_materno").value = apellido_materno;
-                    formulario.querySelector("#area").value = area;
-                    formulario.querySelector("#perfil").value = perfil;
-                    formulario.querySelector("#usuario").value = usuario;
-                    formulario.querySelector("#usuario").readOnly = true;
-
-
-                    //formulario.querySelector("#idConcepto").focus();
-                    formulario.querySelector("#nombre").focus();
-                    formulario.querySelector("#apellido_paterno").focus();
-                    formulario.querySelector("#apellido_materno").focus();
-                    formulario.querySelector("#area").focus();
-                    formulario.querySelector("#perfil").focus();
-                    formulario.querySelector("#usuario").focus();
-                }
-            });
-        });
-        document.querySelector('#Estatus').style.display = "none";
-        //*****************Funcion limpiar para quitar boton y estiñps en tabla 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Agregar el event listener para el botón de limpiar
-            document.querySelector('#Limpiar').addEventListener('click', function () {
-                //document.querySelector("#nombreConcepto").readOnly = false;
-                document.getElementById("nombre").blur();
-                document.getElementById("apellido_paterno").blur();
-                document.getElementById("apellido_materno").blur();
-                document.getElementById("area").blur();
-                document.getElementById("perfil").blur();
-                document.querySelector("#usuario").readOnly = false;
-                // Esta función se ejecutará cuando se haga clic en el botón de limpiar
-                document.querySelector('#Guardar').style.display = "block";
-                document.querySelector('#Modificar').style.display = "none";
-                document.querySelector('#Estatus').style.display = "none";
-               // document.querySelector('#tipoIngreso').style.fontWeight = "normal";
-                if (document.querySelector('.selected')) {
-                    document.querySelector('.selected').classList.remove('selected');
-                }
-            });
-        });
-        //*******************************************************************
-
-
+// Función para limpiar el formulario y restablecer los botones
+function limpiarFormulario() {
+    document.getElementById('formulario').reset();
+    document.getElementById('Guardar').style.display = 'inline-block';
+    document.getElementById('Modificar').style.display = 'none';
+    document.getElementById('Estatus').style.display = 'none';
+}
 
 </script>
     <%@include file="../Pie.jsp"%>
