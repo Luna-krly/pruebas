@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Excepciones.DAOException;
 import Objetos.Obj_Admin_usuario;
 import Objetos.obj_Mensaje;
 import java.sql.PreparedStatement;
@@ -65,14 +66,14 @@ public class dao_Administrar_usr extends DataAccessObject {
             return msj;   
     }
 }
-        public List<Obj_Admin_usuario> Listar() throws SQLException  {
+        public List<Obj_Admin_usuario> Listar() throws SQLException, DAOException  {
         System.out.println("-----acceso_usuario.Mostrar lista()-----");
         ResultSet rs = null;
         PreparedStatement stmt = null;
 	Obj_Admin_usuario admUser = null;
         List<Obj_Admin_usuario> usuarioslista = new ArrayList<>();
         
-        String sql = "SELECT id,nombre_usuario, nombre, apellido_paterno,apllido_ materno,id_area, area,id_perfil, perfil FROM vw_acc_usuario";
+        String sql = "SELECT id,nombre_usuario, nombre, apellido_paterno, apellido_materno, id_area, area,id_perfil, perfil FROM vw_acc_usuario";
        
         try {
         //conexion
@@ -88,7 +89,7 @@ public class dao_Administrar_usr extends DataAccessObject {
             admUser.setUsuario(rs.getString("nombre_usuario"));
             admUser.setNombre(rs.getString("nombre"));
             admUser.setAp_p(rs.getString("apellido_paterno"));
-            admUser.setAp_m(rs.getString("apllido_ materno"));
+            admUser.setAp_m(rs.getString("apellido_materno"));
             admUser.setId_area(rs.getString("id_area"));
             admUser.setNombre_area(rs.getString("area"));
             admUser.setId_perfil(rs.getString("id_perfil"));
@@ -106,6 +107,5 @@ public class dao_Administrar_usr extends DataAccessObject {
            
             return null;
         }
-
     }
 }

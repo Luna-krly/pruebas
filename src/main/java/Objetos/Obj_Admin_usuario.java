@@ -22,6 +22,9 @@ public class Obj_Admin_usuario {
     String clave;
     String nombre_area;
     String nombre_perfil;
+    String Titulo;
+    String descripcion;
+    boolean miboolean;
 
     public String getId_acc() {
         return id_acc;
@@ -117,6 +120,30 @@ public class Obj_Admin_usuario {
 
     public void setNombre_perfil(String nombre_perfil) {
         this.nombre_perfil = nombre_perfil;
+    }
+
+    public String getTitulo() {
+        return Titulo;
+    }
+
+    public void setTitulo(String Titulo) {
+        this.Titulo = Titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean isMiboolean() {
+        return miboolean;
+    }
+
+    public void setMiboolean(boolean miboolean) {
+        this.miboolean = miboolean;
     }
     
     

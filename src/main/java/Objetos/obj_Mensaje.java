@@ -11,7 +11,8 @@ package Objetos;
 public class obj_Mensaje {
 
     private static final long serialVersionUID = 1L;
-
+    
+    private String titulo;
     private String mensaje; //titulo
     private String descripcion;
     private Boolean tipo;
@@ -40,4 +41,12 @@ public class obj_Mensaje {
         this.tipo = tipo;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
 }
