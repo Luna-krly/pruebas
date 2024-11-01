@@ -367,7 +367,7 @@ if (sesionUsuario  != null && sesionUsuario .getAttribute("usuario") != null) {
                         
                         <!-- CATALOGO ADMINISTRAR USUARIOS, el href debe ir redirigido al jsp correspondiente-->
                         <li class="nav-item">
-                            <a class="nav-link" href="Admin/AdminUsuarios.jsp" >Administrar Usuarios</a>
+                            <a class="nav-link" href="Srv_Administrar_usr" >Administrar Usuarios</a>
                         </li>
                         <!---------------------------------------------------------------->
                         <li class="nav-item" id="timeset" hidden="true">
