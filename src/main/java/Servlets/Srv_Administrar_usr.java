@@ -6,9 +6,11 @@ package Servlets;
 
 import DAO.dao_Administrar_usr;
 import DAO.dao_Area;
+import DAO.dao_Perfil;
 import Objetos.Obj_Admin_usuario;
 import Objetos.obj_Area;
 import Objetos.obj_Mensaje;
+import Objetos.obj_Perfil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -50,10 +52,10 @@ public class Srv_Administrar_usr extends HttpServlet {
         request.setAttribute("listaAreas", listaAreas);
          
         // conexion al dao de perfil 
-        /* perfilDao perfilDao = new perfilDao();
-         List<perfil> listaPerfil = perfilDao.listarperfil(); 
+        dao_Perfil perfilDao = new dao_Perfil();
+         List<obj_Perfil> listaPerfil = perfilDao.listarperfil(); 
             System.out.println("Lista de perfiles:" + listaPerfil);
-        request.setAttribute("listaPerfil", listaPerfil);*/
+        request.setAttribute("listaPerfil", listaPerfil);
 
 
         String id_acc = request.getParameter("id_acceso");
@@ -72,19 +74,6 @@ public class Srv_Administrar_usr extends HttpServlet {
         //String usr_alta = (String) session.getAttribute("usuarioLogueado");
 
 
-       /* String area;
-            if ("1".equals(id_area)) {
-                area= "Administración";
-                System.out.println("Administración");
-            } else if ("2".equals(id_area)) {
-                area= "Sistemas";
-                System.out.println("Sistemas");
-            } else {
-                area = "No válido";
-                System.out.println("Tipo de persona no válido");
-                // Manejar el error si es necesario
-            }*/
-
         dao_Administrar_usr daoLista = new dao_Administrar_usr();
         List<Obj_Admin_usuario> admuser = null;  //mandamos a llamar la clase objeto
 
@@ -102,7 +91,7 @@ public class Srv_Administrar_usr extends HttpServlet {
         dao_Administrar_usr  procedimiento = new  dao_Administrar_usr ();
         obj_Mensaje respuesta = null;
         
-        /*int id_area_int = 0;
+        int id_area_int = 0;
         int id_perfil_int = 0;
         
         if(id_area!= null){
@@ -110,22 +99,22 @@ public class Srv_Administrar_usr extends HttpServlet {
         }
         if(id_perfil!= null){
             id_perfil_int = Integer.parseInt(id_perfil);
-        }*/
+        }
        
         //dependiendo de la opcion seleccionada, realizara la accion correspondiente
         switch(opcion){
             case "101":
                 //respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs(0, 0, "101", usuario, nombre, ap_p, ap_m, 0, 0, clave);
+                respuesta = procedimiento.Administar_urs(0, 0, "101", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
                 break;
             case "102":
                 //respuesta = procedimiento.Administar_urs( "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
-                respuesta = procedimiento.Administar_urs(0, 0, "102", usuario, nombre, ap_p, ap_m, 0, 0, null);
+                respuesta = procedimiento.Administar_urs(0, 0, "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
                 break;
             case "103":
                 System.out.println("entra a baja-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 //respuesta = procedimiento.Administar_urs( "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs(0, 0, "103", usuario, nombre, ap_p, ap_m, 0, 0, clave);
+                respuesta = procedimiento.Administar_urs(0, 0, "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
                 System.out.println("titulo" + respuesta.getMensaje());
                 System.out.println("descripcion"+ respuesta.getDescripcion());
                 break;

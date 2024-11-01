@@ -1,13 +1,64 @@
 <%-- 
     Document   : AdminUsuarios
     Created on : 13 feb 2024, 13:21:19
-    Author     : Ing. Evelyn Leilani AvendaÒo 
+    Author     : Ing. Evelyn Leilani Avenda√±o 
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="../Encabezado.jsp"%>
+<%@ page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="Objetos.Obj_Admin_usuario"%>
+<%@page import="Objetos.obj_Mensaje"%>
+<%@page import="Objetos.obj_Area"%>
+<%@page import="Objetos.obj_Perfil"%>
+<%!obj_Mensaje mensaje;%>
+
+<%! obj_Perfil  perfil;%>
+<%! List<obj_Perfil> listaPerfil;%>
+<%
+    listaPerfil = (List<obj_Perfil>) request.getAttribute("listaPerfil");
+    System.out.println("Lista perfil "+ perfil);
+System.out.println("Entrando al AdminUsuarios.jsp");
+%>
+
+<%! obj_Area areas;%>
+<%!  List<obj_Area> listaAreas;%>    
+<%
+    listaAreas= (List<obj_Area> listaAreas) request.getAttribute("listaAreas");
+    System.out.println("Lista areas "+ areas);
+System.out.println("Entrando al AdminUsuarios.jsp");
+%>
+
+<%! Obj_Admin_usuario user;%>
+<%! List<Obj_Admin_usuario> usuarios;%>
+<%
+    usuarios =(List<Obj_Admin_usuario>)request.getAttribute("lista");
+    System.out.println("Lista usuarios "+ usuarios);
+ System.out.println("Entrando al AdminUsuarios.jsp");
+%>
+
+<%--MENSAJE DE ERROR SI ES QUE HAY--%>
+<%
+    // Si no hay mensaje en la sesi√≥n, intenta obtenerlo del request
+	mensaje = (Mensaje) request.getAttribute("mensaje");
+        if(mensaje == null){
+        mensaje = (Mensaje) session.getAttribute("mensaje");
+        request.getSession().removeAttribute("mensaje");
+    }
+
+    // Si hay un mensaje, mostrarlo y eliminarlo de la sesi√≥n
+    if (mensaje != null) {
+    System.out.println("Hay un mensaje en mensaje.jsp");
+    if(mensaje.getMiBoolean() == true ){ //ERROR
+%>
+
 <%
     System.out.println("---------------------AdminUsuarios JSP---------------------");
 %>
 
-<%@include file="../Encabezado.jsp"%>
+<div id="mensajeAlert" class="alert alert-info" role="alert"><%out.print(mensaje.getMensaje());%><%out.print(mensaje.getDescripcion());%></div>
+<%}}%>
+
 
 <style>
     .centrado-verticalmente {
@@ -24,7 +75,7 @@
         /* Efecto de sombra opcional */
     }
 
-    /* Estilos para el checkbox cuando est· marcado */
+    /* Estilos para el checkbox cuando est√° marcado */
     .form-check-input:checked {
         background-color: #ff5000 !important;
         border-color: #ff5000 !important;
@@ -46,7 +97,7 @@
         }
     }
 
-    /* Pantallas pequeÒas */
+    /* Pantallas peque√±as */
     @media (max-width: 575.98px) {
         .d-block {
             display: none !important;
@@ -74,11 +125,11 @@
         <i class="bi bi-list"></i></a>
     <br>
     <div class="page-header pt-3 stc">
-        <h3>ADMINISTRACI”N DE USUARIOS</h3>
+        <h3>ADMINISTRACI√ìN DE USUARIOS</h3>
     </div>
     <div id="datetime" class="stc" style="font-size: 75%;"></div>
     <hr>
-<form id="formulario" action="PENDIENTE" method="POST" id="formulario" class="fontformulario" style="font-size: 80%; margin: 15px;">
+<form id="formulario" action="PENDIENTE" method="POST" onsubmit="return AdministrarUsuario()" id="formulario" class="fontformulario" style="font-size: 80%; margin: 15px;">
     <div class="row mb-4">
         <div class="col">
              <div data-mdb-input-init class="form-outline" style="background-color: white;">
@@ -103,14 +154,28 @@
      <div class="row mb-4">
         <div class="col">
             <div class="form-outline mdb-input">
-                <select data-mdb-select-init class="form-select" id="area" name="area" style="font-size: 105%; font-weight: bold;" required>
+                <select  class="form-select" data-mdb-select-init class="form-select" id="area" name="area" style="font-size: 105%; font-weight: bold;" required>
+                     <option value="">Selecciona un √°rea</option>
+                      <c:forEach var="area" items="${listaAreas}">
+                      <option value="${area.id_area}">${area.nombre_area}</option>
+                      </c:forEach>
                 </select>
-                <label class="form-label" for="area">¡REA</label>
+                <!--  <label class="form-label" for="area">√ÅREA</label> -->
             </div>
         </div>
         <div class="col">
             <div class="form-outline mdb-input">
-                <select data-mdb-select-init class="form-select" id="perfil" name="perfil" style="font-size: 105%; font-weight: bold;" required>
+                <!--<select class="form-select" name="id_perfil" id="perfil" data-mdb-select-init class="form-select" aria-label="Default select example" style="font-size: 105%;" required>
+                       <option value="">Selecciona un perfil</option>
+                       <c:forEach var="perfil" items="${listaPerfil}">
+                       <option value="${perfil.id_perfil}">${perfil.nombre_perfil}</option>
+                       </c:forEach>
+                    </select> -->
+                <select class="form-select" data-mdb-select-init class="form-select" id="perfil" name="perfil" style="font-size: 105%; font-weight: bold;" required>
+                      <option value="">Selecciona un perfil</option>
+                        <c:forEach var="perfil" items="${listaPerfil}">
+                       <option value="${perfil.id_perfil}">${perfil.nombre_perfil}</option>
+                       </c:forEach>
                 </select>
                 <label class="form-label" for="perfil">PERFIL</label>
             </div>
@@ -145,7 +210,7 @@
         </div>
         <!-- finaliza seccion de botones -->
 </form>
-    <!-- Input de B˙squeda y BotÛn Imprimir -->
+    <!-- Input de B√∫squeda y Bot√≥n Imprimir -->
     <div class="row justify-content-center mb-3">
         <div class="col-md-3">
             <div data-mdb-input-init class="form-outline fontformulario">
@@ -154,7 +219,7 @@
             </div>
         </div>
     </div>
-    <!-- BotÛn Imprimir o Exportar si es necesario -->
+    <!-- Bot√≥n Imprimir o Exportar si es necesario -->
     <!--<div class="col-md-4" style="text-align: left;">
             <%---TODO: AGREGAR EL VALUE CORRESPONDIENTE AL REPORTE ---%>
             <form action="${pageContext.request.contextPath}/Reportes/reportes_catalogos.jsp" id="formulario-impresion" method="post" target="_blank">
@@ -167,8 +232,10 @@
                 <span class="d-none d-sm-inline">EXPORTAR A EXCEL</span>
             </button>
     </div> -->  
-<!--Termina aquÌ boton de busqueda e impresion -->
-
+<!--Termina aqu√≠ boton de busqueda e impresion -->
+<%
+if(usuarios != null && usuarios.size() > 0){
+%>
 <!-- esto pertence a la tabla  -->
     <div class="row d-flex justify-content-center p-3">
     <div class="text-center" style="position: relative; width: 100%;">
@@ -180,34 +247,33 @@
                             <th class="fw-bold">NOMBRE</th>
                             <th class="fw-bold">APELLIDO PATERNO</th>
                             <th class="fw-bold">APELLIDO MATERNO</th>
-                            <th class="fw-bold" style="display: none;">¡REA</th>
-                            <th class="fw-bold">NOMBRE ¡REA</th>
+                            <th class="fw-bold" style="display: none;">√ÅREA</th>
+                            <th class="fw-bold">NOMBRE √ÅREA</th>
                             <th class="fw-bold" style="display: none;">PERFIL</th>
                             <th class="fw-bold">NOMBRE PERFIL</th>
                             <th class="fw-bold">USUARIO</th>
                         </tr>
                     </thead>
                     <tbody id="datos" style="font-size: 75%;">
+<%
+   for (int i = 0; i < usuarios.size(); i++) {
+    user = usuarios.get(i);
+    System.out.println("OBJETO"+user);
+%>
                         <tr onclick="seleccionarFila(this)">
-                           <td>Cristobal</td>
-                           <td>Alvarez</td>
-                           <td>Quintero</td>
-                           <td style="display: none;">2</td>
-                           <td>Sistemas</td>
-                           <td style="display: none;">2</td>
-                           <td>Sistemas</td>
-                           <td>Cristobal</td>
+                        <td><%out.print(user.getNombre());%></td>
+                        <td><%out.print(user.getAp_p());%></td>
+                        <td><%out.print(user.getAp_m());%></td>
+                        <td style="display: none;"><%out.print(user.getId_area());%></td>
+                        <td style="display: none;"><%out.print(user.getId_perfil());%></td>
+                        <td><%out.print(user.getNombre_area());%></td>
+                        <td><%out.print(user.getNombre_perfil());%></td>
                         </tr>
-                        <tr>
-                           <td>Diana</td>
-                           <td>Orocio</td>
-                           <td>Lucio</td>
-                           <td style="display: none;">2</td>
-                           <td>Administracion</td>
-                           <td style="display: none;">2</td>
-                           <td>Administrador</td>
-                           <td>Diana</td>
-                        </tr>
+                        <% }%>  
+<%
+    if (mensaje != null && "Eliminaci√≥n Exitosa".equals(mensaje.getTitulo())) {
+%>
+<% } %>
                     </tbody>
                 </table>
                 <center>
@@ -241,11 +307,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    <!-- Script para manejar el evento de clic en el botÛn de impresiÛn -->
+    <!-- Script para manejar el evento de clic en el bot√≥n de impresi√≥n -->
 
 
 <script>
-    
+function AdministrarUsuario() {
+    const nombre = document.getElementById("nombre").value.trim();
+    const apellidoPaterno= document.getElementById("apellido_paterno").value.trim();
+    const apellidoMaterno = document.getElementById("apellido_materno").value.trim();
+    const area = document.getElementById("areas").value;
+    const perfil = document.getElementById("perfil").value;
+    const usuario = document.getElementById("usuario").value.trim();
+    // Validaci√≥n de campos vac√≠os
+    if (!expediente || !nombre || !apellidoPaterno|| !apellidoMaterno || !area || !perfil || !usuario) {
+        alert("Por favor, completa todos los campos.");
+        return false;
+    }
+    return true;
+}   
 window.onload = function() {
     var alert = document.getElementById('mensajeAlert');
     if (alert) {
@@ -278,7 +357,7 @@ function filterTable() {
 }
 
 //Funcion para llenar el formulario cuando se hace clic en una fila 
-//Este cÛdigo si permite subir los datos de la tabla a los input
+//Este c√≥digo si permite subir los datos de la tabla a los input
 function seleccionarFila(fila) {
     // Obtiene los datos de cada columna de la fila seleccionada
     const nombre = fila.cells[0].textContent;
@@ -296,13 +375,13 @@ function seleccionarFila(fila) {
     document.getElementById('perfil').value = perfil;
     document.getElementById('usuario').value = usuario;
 
-    // Muestra los botones "Modificar" y "Eliminar", y oculta el botÛn "Guardar"
+    // Muestra los botones "Modificar" y "Eliminar", y oculta el bot√≥n "Guardar"
     document.getElementById('Guardar').style.display = 'none';
     document.getElementById('Modificar').style.display = 'inline-block';
     document.getElementById('Estatus').style.display = 'inline-block';
 }
 
-// FunciÛn para limpiar el formulario y restablecer los botones
+// Funci√≥n para limpiar el formulario y restablecer los botones
 function limpiarFormulario() {
     document.getElementById('formulario').reset();
     document.getElementById('Guardar').style.display = 'inline-block';
