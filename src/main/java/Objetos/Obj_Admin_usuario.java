@@ -10,8 +10,8 @@ package Objetos;
  */
 public class Obj_Admin_usuario {
     
-    int id_acc;
-    int id_usu;
+    String id_acc;
+    String id_usu;
     String opcion;
     String usuario;
     String nombre;
@@ -21,19 +21,19 @@ public class Obj_Admin_usuario {
     String id_perfil;
     String clave;
 
-    public int getId_acc() {
+    public String getId_acc() {
         return id_acc;
     }
 
-    public void setId_acc(int id_acc) {
+    public void setId_acc(String id_acc) {
         this.id_acc = id_acc;
     }
 
-    public int getId_usu() {
+    public String getId_usu() {
         return id_usu;
     }
 
-    public void setId_usu(int id_usu) {
+    public void setId_usu(String id_usu) {
         this.id_usu = id_usu;
     }
 
