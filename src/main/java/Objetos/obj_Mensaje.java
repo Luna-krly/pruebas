@@ -12,7 +12,7 @@ public class obj_Mensaje {
 
     private static final long serialVersionUID = 1L;
 
-    private String mensaje;
+    private String mensaje; //titulo
     private String descripcion;
     private Boolean tipo;
 

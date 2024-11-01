@@ -44,7 +44,7 @@ public dao_Perfil() throws ClassNotFoundException, SQLException{
         while(rs.next()){
             perfil = new obj_Perfil();
             perfil.setIdPerfil(rs.getInt("id_perfil"));
-            perfil.setNombre_perfil(rs.getString("nombre_perfil"));
+            perfil.setNombre_perfil(rs.getString("nombre"));
             perfil.setEstatus(rs.getString("estatus"));
             listaPerfil.add(perfil);
             }
@@ -56,13 +56,8 @@ public dao_Perfil() throws ClassNotFoundException, SQLException{
             System.out.println("Excepcion: " + ex);
             System.out.println("Mensaje: " + ex.getMessage());
            
-            //return null;
-        }finally {
-            closeStatement(stmt);
-            closeResultSet(rs);
-            System.out.println("Cierra consulta");
+            return null;
         }
-        return null;
 
     }
  

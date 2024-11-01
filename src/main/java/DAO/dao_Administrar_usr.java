@@ -72,13 +72,7 @@ public class dao_Administrar_usr extends DataAccessObject {
 	Obj_Admin_usuario admUser = null;
         List<Obj_Admin_usuario> usuarioslista = new ArrayList<>();
         
-
-      String sql = "SELECT u.*, a.id_perfil, ta.nombre_area , tp.nombre_perfil " +
-             "FROM usuarios u " +
-             "JOIN accesos a ON u.id_usuarios = a.id_usuario " +
-             "JOIN tabla_areas ta ON u.id_area = ta.id_area " +
-             "JOIN tabla_perfiles tp ON a.id_perfil = tp.id_perfil " +
-             "WHERE u.estatus = '1'";
+        String sql = "SELECT id,nombre_usuario, nombre, apellido_paterno,apllido_ materno,id_area, area,id_perfil, perfil FROM vw_acc_usuario";
        
         try {
         //conexion
@@ -89,15 +83,17 @@ public class dao_Administrar_usr extends DataAccessObject {
         while(rs.next()){
 
             admUser = new Obj_Admin_usuario();
-            admUser.setId_usu(rs.getString("id_usuario"));
-            admUser.setOpcion(rs.getString("opcion"));
-            admUser.setUsuario(rs.getString("usuario"));
+            admUser.setId_usu(rs.getString("id"));
+            //admUser.setOpcion(rs.getString("opcion"));
+            admUser.setUsuario(rs.getString("nombre_usuario"));
             admUser.setNombre(rs.getString("nombre"));
-            admUser.setAp_p(rs.getString("apaterno"));
-            admUser.setAp_m(rs.getString("amaterno"));
+            admUser.setAp_p(rs.getString("apellido_paterno"));
+            admUser.setAp_m(rs.getString("apllido_ materno"));
             admUser.setId_area(rs.getString("id_area"));
+            admUser.setNombre_area(rs.getString("area"));
             admUser.setId_perfil(rs.getString("id_perfil"));
-            admUser.setClave(rs.getString("clave"));
+            //admUser.setClave(rs.getString("clave"));
+            admUser.setNombre_perfil(rs.getString("perfil"));
             usuarioslista.add(admUser);
           }
             
