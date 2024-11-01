@@ -69,10 +69,10 @@ public class Srv_Administrar_usr extends HttpServlet {
 
         
         //extraer el usuario del login:
-        String usr_alta = (String) session.getAttribute("usuarioLogueado");
+        //String usr_alta = (String) session.getAttribute("usuarioLogueado");
 
 
-        String area;
+       /* String area;
             if ("1".equals(id_area)) {
                 area= "Administración";
                 System.out.println("Administración");
@@ -83,7 +83,7 @@ public class Srv_Administrar_usr extends HttpServlet {
                 area = "No válido";
                 System.out.println("Tipo de persona no válido");
                 // Manejar el error si es necesario
-            }
+            }*/
 
         dao_Administrar_usr daoLista = new dao_Administrar_usr();
         List<Obj_Admin_usuario> admuser = null;  //mandamos a llamar la clase objeto
@@ -102,7 +102,7 @@ public class Srv_Administrar_usr extends HttpServlet {
         dao_Administrar_usr  procedimiento = new  dao_Administrar_usr ();
         obj_Mensaje respuesta = null;
         
-        int id_area_int = 0;
+        /*int id_area_int = 0;
         int id_perfil_int = 0;
         
         if(id_area!= null){
@@ -110,23 +110,22 @@ public class Srv_Administrar_usr extends HttpServlet {
         }
         if(id_perfil!= null){
             id_perfil_int = Integer.parseInt(id_perfil);
-        }
+        }*/
        
         //dependiendo de la opcion seleccionada, realizara la accion correspondiente
         switch(opcion){
-            case "guardar":
-                
-                //respuesta = procedimiento.accUsuario("guardar", expediente, nombre, ap_paterno, ap_materno, id_area_int , usr_alta, id_perfil_int, usuario, clave_acc);
-                respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+            case "101":
+                //respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+                respuesta = procedimiento.Administar_urs(0, 0, "101", usuario, nombre, ap_p, ap_m, 0, 0, clave);
                 break;
-            case "modificar":
-                //respuesta = procedimiento.accUsuario("modificar", expediente, nombre, ap_paterno, ap_materno,id_area_int, usr_alta,id_perfil_int, usuario, null);
-                respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
+            case "102":
+                //respuesta = procedimiento.Administar_urs( "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
+                respuesta = procedimiento.Administar_urs(0, 0, "102", usuario, nombre, ap_p, ap_m, 0, 0, null);
                 break;
-            case "baja":
+            case "103":
                 System.out.println("entra a baja-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                //respuesta = procedimiento.accUsuario("baja", expediente, nombre, ap_paterno, ap_materno, 0, usr_alta, 0, expediente, clave_acc);
-                respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+                //respuesta = procedimiento.Administar_urs( "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+                respuesta = procedimiento.Administar_urs(0, 0, "103", usuario, nombre, ap_p, ap_m, 0, 0, clave);
                 System.out.println("titulo" + respuesta.getMensaje());
                 System.out.println("descripcion"+ respuesta.getDescripcion());
                 break;
