@@ -182,7 +182,7 @@ System.out.println("Entrando al AdminUsuarios.jsp");
         </div>
         <div class="col">
             <div data-mdb-input-init class="form-outline" style="background-color: white;">
-                <input type="text" style="font-weight: bold;" id="usuario" name="usuario" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" readonly />
+                <input type="text" style="font-weight: bold;" id="usuario" name="usuario" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()"/>
                 <label class="form-label" for="usuario">USUARIO</label>
             </div>
         </div>
@@ -374,6 +374,9 @@ function seleccionarFila(fila) {
     document.getElementById('area').value = area;
     document.getElementById('perfil').value = perfil;
     document.getElementById('usuario').value = usuario;
+    
+    // Deshabilita el campo de usuario para evitar que sea editable
+    document.getElementById('usuario').setAttribute('disabled', true);
 
     // Muestra los botones "Modificar" y "Eliminar", y oculta el botón "Guardar"
     document.getElementById('Guardar').style.display = 'none';
@@ -387,6 +390,9 @@ function limpiarFormulario() {
     document.getElementById('Guardar').style.display = 'inline-block';
     document.getElementById('Modificar').style.display = 'none';
     document.getElementById('Estatus').style.display = 'none';
+    
+    // Habilita el campo de usuario para que sea editable nuevamente
+    document.getElementById('usuario').removeAttribute('disabled');
 }
 
 </script>
