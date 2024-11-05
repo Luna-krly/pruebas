@@ -63,7 +63,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
         /* Efecto de sombra opcional */
     }
 
-    /* Estilos para el checkbox cuando estÃ¡ marcado */
+    /* Estilos para el checkbox cuando está marcado */
     .form-check-input:checked {
         background-color: #ff5000 !important;
         border-color: #ff5000 !important;
@@ -72,6 +72,11 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     /* Estilos adicionales para el enfoque del checkbox */
     .form-check-input:focus {
         box-shadow: 0 0 0 0.25rem #ff5000 !important;
+    }
+    
+    .fila-seleccionada {
+        background-color: #ff5000 !important;
+        color: white; /* Cambia el color del texto si es necesario */
     }
 
     /* Pantallas grandes */
@@ -85,7 +90,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
         }
     }
 
-    /* Pantallas pequeÃ±as */
+    /* Pantallas pequeñas */
     @media (max-width: 575.98px) {
         .d-block {
             display: none !important;
@@ -104,11 +109,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
 
     input, textarea{
         text-transform: uppercase;
-    }
-    .fila-seleccionada {
-    background-color: #ffedc2 !important; /* Un color de fondo destacado */
-}
-  
+    }  
 </style>
 
 <!-- Cuerpo del catalogo -->
@@ -125,7 +126,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     <div class="row mb-4">
            <div class="col">
     <div data-mdb-input-init class="form-outline" style="background-color: white;">
-        <input type="text" style="font-weight: bold;" id="usuario" name="usuario" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
+        <input type="text" style="font-weight: bold;" id="usuario" name="usuario" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" readonly/>
         <label class="form-label" for="usuario">USUARIO</label>
     </div>
            </div>
@@ -138,22 +139,30 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
         
         <div class="col mb-3">
             <div data-mdb-input-init class="form-outline mdb-input" style="background-color: white;">
-                <input type="text" style="font-weight: bold;" id="apellido_paterno" name="apellido_paterno" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
+                <input type="text" style="font-weight: bold;" id="apellido_paterno" name="apaterno" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
                 <label class="form-label" for="apellido_paterno">APELLIDO PATERNO</label>
             </div>
         </div>
         <div class="col mb-3">
             <div data-mdb-input-init class="form-outline mdb-input" style="background-color: white;">
-                <input type="text" style="font-weight: bold;" id="apellido_materno" name="apellido_materno" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
+                <input type="text" style="font-weight: bold;" id="apellido_materno" name="amaterno" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
                 <label class="form-label" for="apellido_materno">APELLIDO MATERNO</label>
             </div>
         </div>
     </div>
+    <!-- Email input -->
+    <div class="col mb-3">
+         <div data-mdb-input-init class="form-outline mb-4" style="background-color: white;">
+            <input type="email" style="font-weight: bold;" id="email" name="correo" class="form-control" onblur="this.value = this.value.trim()" required/>
+            <label class="form-label" for="email">CORREO ELECTRONICO</label>
+         </div>
+     </div>
+    <!-- Email input -->
     <!-- AQUI IRAN LOS SELECT DE AREA Y PERFIL ASI COMO EL INPUT DE USUARIO-->
      <div class="row mb-4">
          <div class="col">
                <div class="form-outline mdb-input">
-                         <select style="font-weight: bold;" style="font-weight: bold;" value="" id="area" name="area" class="form-select form-select-sm" aria-label="Default select example" required>
+                         <select style="font-weight: bold;" style="font-weight: bold;" value="" id="area" name="id_area" class="form-select form-select-sm" aria-label="Default select example" required>
                           <option value="" disabled selected style="display: none;" ></option>
                      <c:forEach var="area" items="${listaAreas}">
                    <option value="${area.idArea}">${area.nombre_area}</option>
@@ -164,7 +173,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
 </div>
     <div class="col">
              <div class="form-outline mdb-input">
-                          <select style="font-weight: bold;" style="font-weight: bold;" value="" id="perfil" name="perfil" class="form-select form-select-sm" aria-label="Default select example" required>
+                          <select style="font-weight: bold;" style="font-weight: bold;" value="" id="perfil" name="id_perfil" class="form-select form-select-sm" aria-label="Default select example" required>
                               <option value="" disabled selected style="display: none;" ></option>
                                 <c:forEach var="perfil" items="${listaPerfil}">
              <option value="${perfil.idPerfil}">${perfil.nombre_perfil}</option>
@@ -236,6 +245,7 @@ if(admuser != null && admuser.size() > 0){
                             <th class="fw-bold">NOMBRE</th>
                             <th class="fw-bold">APELLIDO PATERNO</th>
                             <th class="fw-bold">APELLIDO MATERNO</th>
+                            <th class="fw-bold">CORREO ELECTRONICO</th>
                             <th class="fw-bold" style="display: none;">AREA</th>
                             <th class="fw-bold">NOMBRE AREA</th>
                             <th class="fw-bold" style="display: none;">PERFIL</th>
@@ -253,6 +263,7 @@ if(admuser != null && admuser.size() > 0){
                         <td><%out.print(admin.getNombre());%></td>
                         <td><%out.print(admin.getAp_p());%></td>
                         <td><%out.print(admin.getAp_m());%></td>
+                        <td><%out.print(admin.getEmail());%></td>
                         <td style="display: none;"><%out.print(admin.getId_area());%></td>
                         <td style="display: none;"><%out.print(admin.getId_perfil());%></td>
                         <td><%out.print(admin.getNombre_area());%></td>
@@ -280,7 +291,7 @@ if(admuser != null && admuser.size() > 0){
     </div>
 </div>
   <%}else{%>
-<h3>NO HAY USUARIOS</h3>
+<!-- <h3>NO HAY USUARIOS</h3> -->
 <%}%>
                   
 <!-- hasta aqui pertence a la tabla  -->
@@ -309,11 +320,12 @@ function AdministrarUsuario() {
     const nombre = document.getElementById("nombre").value.trim();
     const apellidoPaterno= document.getElementById("apellido_paterno").value.trim();
     const apellidoMaterno = document.getElementById("apellido_materno").value.trim();
+    const email = document.getElementById("email").value.trim();
     const area = document.getElementById("area").value;
     const perfil = document.getElementById("perfil").value;
     const usuario = document.getElementById("usuario").value.trim();
     // ValidaciÃ³n de campos vacÃ­os
-    if (!expediente || !nombre || !apellidoPaterno|| !apellidoMaterno || !area || !perfil || !usuario) {
+    if (!nombre || !apellidoPaterno|| !apellidoMaterno || !email || !area || !perfil || !usuario) {
         alert("Por favor, completa todos los campos.");
         return false;
     }
@@ -352,53 +364,80 @@ function filterTable() {
 
 
 //Funcion para llenar el formulario cuando se hace clic en una fila 
-//Este cÃ³digo si permite subir los datos de la tabla a los input
-function seleccionarFila(fila) {
-    // Remueve la clase de selección de cualquier otra fila seleccionada
-    const filas = document.querySelectorAll('#concepto-table tbody tr');
-    filas.forEach(f => f.classList.remove('fila-seleccionada'));
+document.addEventListener('DOMContentLoaded', function () {
+    // Obtener la tabla y el formulario
+    var tabla = document.getElementById('concepto-table');
+    var formulario = document.getElementById('formulario');
 
-    // Añade la clase de selección a la fila actual
-    fila.classList.add('fila-seleccionada');
+    // Añadir un evento de clic a las filas de la tabla
+    tabla.addEventListener('click', function (event) {
+        // Verificar si se hizo clic en una celda de la fila
+        if (event.target.tagName === 'TD') {
+            // Obtener la fila de la celda clicada
+            var fila = event.target.parentNode;
 
-    // Obtiene los datos de cada columna de la fila seleccionada
-    const nombre = fila.cells[0].textContent;
-    const apellidoPaterno = fila.cells[1].textContent;
-    const apellidoMaterno = fila.cells[2].textContent;
-    const area = fila.cells[3].textContent;
-    const perfil = fila.cells[4].textContent;
-    const usuario = fila.cells[7].textContent;
+            // Limpiar la selección previa
+            if (tabla.querySelector('.selected')) {
+                tabla.querySelector('.selected').classList.remove('selected');
+            }
+            // Cambiar color de la fila seleccionada
+            fila.classList.add("selected");
 
-    // Asigna los valores a los inputs del formulario
-    document.getElementById('nombre').value = nombre;
-    document.getElementById('apellido_paterno').value = apellidoPaterno;
-    document.getElementById('apellido_materno').value = apellidoMaterno;
-    document.getElementById('area').value = area;
-    document.getElementById('perfil').value = perfil;
-    document.getElementById('usuario').value = usuario;
+            // Cambiar visibilidad de botones
+            document.querySelector('#Guardar').style.display = "none";
+            document.querySelector('#Modificar').style.display = "inline-block";
+            document.querySelector('#Estatus').style.display = "inline-block";
 
-    // Asegura que el campo de usuario esté deshabilitado permanentemente
-    document.getElementById('usuario').setAttribute('disabled', true);
+            // Obtener los datos de la fila seleccionada
+            const nombre = fila.cells[0].textContent;
+            const apellidoPaterno = fila.cells[1].textContent;
+            const apellidoMaterno = fila.cells[2].textContent;
+            const email = fila.cells[3].textContent;
+            const area = fila.cells[4].textContent;
+            const perfil = fila.cells[5].textContent;
+            const usuario = fila.cells[8].textContent;
 
-    // Muestra los botones "Modificar" y "Eliminar", y oculta el botón "Guardar"
-    document.getElementById('Guardar').style.display = 'none';
-    document.getElementById('Modificar').style.display = 'inline-block';
-    document.getElementById('Estatus').style.display = 'inline-block';
-}
+            // Asignar los valores a los inputs del formulario
+            formulario.querySelector("#nombre").value = nombre;
+            formulario.querySelector("#apellido_paterno").value = apellidoPaterno;
+            formulario.querySelector("#apellido_materno").value = apellidoMaterno;
+            formulario.querySelector("#email").value = email;
+            formulario.querySelector("#area").value = area;
+            formulario.querySelector("#perfil").value = perfil;
+            formulario.querySelector("#usuario").value = usuario;
 
-       
-    function limpiarFormulario() {
-    document.getElementById('formulario').reset();
-    document.getElementById('Guardar').style.display = 'inline-block';
-    document.getElementById('Modificar').style.display = 'none';
-    document.getElementById('Estatus').style.display = 'none';
-    
-    // Habilita el campo de usuario para permitir la entrada
-    var usuarioField = document.getElementById('usuario');
-    usuarioField.removeAttribute('disabled'); // Habilita el campo
+            // Asegurar que el campo de usuario no sea modificable
+            formulario.querySelector("#usuario").setAttribute('readonly', true); 
 
-    // Limpia el campo de usuario
-    usuarioField.value = ''; // Limpia el valor del campo si es necesario
-}
+            // Enfocar los campos de formulario en el orden deseado
+            formulario.querySelector("#nombre").focus();
+        }
+    });
+
+    // Limpiar el formulario y permitir la edición del usuario
+    document.querySelector('#Limpiar').addEventListener('click', function () {
+        // Este hace que todos los campos se restablezcan    
+        document.getElementById('formulario').reset(); 
+
+        // Muestra los botones Guardar, Modificar y Estatus
+        document.getElementById('Guardar').style.display = 'inline-block';
+        document.getElementById('Modificar').style.display = 'none';
+        document.getElementById('Estatus').style.display = 'none';
+
+        // Limpiar la selección previa
+        if (document.querySelector('.selected')) {
+            document.querySelector('.selected').classList.remove('selected');
+        }
+
+        // Habilitar el campo de usuario para permitir la entrada
+        var usuarioField = document.getElementById('usuario');
+        usuarioField.removeAttribute('readonly'); // Elimina el atributo readonly
+
+        // Limpia el campo de usuario
+        usuarioField.value = ''; // Limpia el valor del campo si es necesario
+    });
+});
+
+
     </script>
     <%@include file="../Pie.jsp"%>

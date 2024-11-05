@@ -24,6 +24,7 @@ public class Obj_Admin_usuario {
     String Titulo;
     String descripcion;
     boolean miboolean;
+    String email;
 
 
     public String getOpcion() {
@@ -128,6 +129,14 @@ public class Obj_Admin_usuario {
 
     public void setMiboolean(boolean miboolean) {
         this.miboolean = miboolean;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     

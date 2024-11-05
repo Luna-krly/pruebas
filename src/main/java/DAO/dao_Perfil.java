@@ -35,7 +35,7 @@ public dao_Perfil() throws ClassNotFoundException, SQLException{
         obj_Perfil perfil = null;
         List<obj_Perfil> listaPerfil = new ArrayList<>();
         
-         String sql="SELECT * FROM tabla_perfiles";
+         String sql="SELECT * FROM cat_perfiles";
         
         try {
         stmt = prepareStatement(sql);
