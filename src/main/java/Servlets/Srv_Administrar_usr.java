@@ -57,10 +57,10 @@ public class Srv_Administrar_usr extends HttpServlet {
             System.out.println("Lista de perfiles:" + listaPerfil);
         request.setAttribute("listaPerfil", listaPerfil);
 
-
-        String id_acc = request.getParameter("id_acceso");
-        String id_usu = request.getParameter("id_usuario");
-        String opcion = request.getParameter("opcion");
+       
+        
+        String opcion = request.getParameter("action");
+        System.out.println("opcion resivida: "  +opcion);
         String usuario = request.getParameter("usuario");
         String nombre = request.getParameter("nombre");
         String ap_p = request.getParameter("apaterno");
@@ -82,8 +82,8 @@ public class Srv_Administrar_usr extends HttpServlet {
             admuser = daoLista.Listar();
             session.setAttribute("mensaje", null);
             request.setAttribute("lista", admuser);
-             System.out.println("Entra a opcion == null");
-            request.getRequestDispatcher("AdminUsuarios.jsp").forward(request, response);
+            System.out.println("Entra a opcion == null");
+            request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
             return;
         }
         //crearemos el objeto de Obj_Admin_usuario con los valores del formulario
@@ -100,21 +100,23 @@ public class Srv_Administrar_usr extends HttpServlet {
         if(id_perfil!= null){
             id_perfil_int = Integer.parseInt(id_perfil);
         }
-       
+
         //dependiendo de la opcion seleccionada, realizara la accion correspondiente
         switch(opcion){
             case "101":
                 //respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs(0, 0, "101", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+                respuesta = procedimiento.Administar_urs("101", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
                 break;
             case "102":
+                
+                System.out.println("hola melanyyyy");
                 //respuesta = procedimiento.Administar_urs( "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
-                respuesta = procedimiento.Administar_urs(0, 0, "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
+                respuesta = procedimiento.Administar_urs("102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
                 break;
             case "103":
                 System.out.println("entra a baja-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 //respuesta = procedimiento.Administar_urs( "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs(0, 0, "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+                respuesta = procedimiento.Administar_urs("103", usuario, nombre, ap_p, ap_m, 0, 0, clave);
                 System.out.println("titulo" + respuesta.getMensaje());
                 System.out.println("descripcion"+ respuesta.getDescripcion());
                 break;
@@ -135,12 +137,12 @@ public class Srv_Administrar_usr extends HttpServlet {
         
         if(respuesta.getTipo()){
             session.setAttribute("mensaje", respuesta);
-            request.getRequestDispatcher("acceso_usuarios.jsp").forward(request, response);            
+            request.getRequestDispatcher("AdminUsuarios.jsp").forward(request, response);            
         }else{
             System.out.println("No se puede procesar la solicitud");
             System.out.println("Descripcion" + respuesta.getDescripcion());
              request.setAttribute("mensaje", respuesta);
-             request.getRequestDispatcher("inicio.jsp").forward(request, response);
+             request.getRequestDispatcher("AdminUsuarios.jsp").forward(request, response);
         }
 
         }catch(Exception ex){
@@ -149,7 +151,7 @@ public class Srv_Administrar_usr extends HttpServlet {
           respuesta.setDescripcion(ex.getLocalizedMessage());
           respuesta.setTipo(false);
           request.setAttribute("mensaje", respuesta);
-          request.getRequestDispatcher("inicio.jsp").forward(request, response);  
+          request.getRequestDispatcher("Principal.jsp").forward(request, response);  
         }
 
       
