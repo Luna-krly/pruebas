@@ -26,33 +26,32 @@ public class dao_Administrar_usr extends DataAccessObject {
         super();
         System.out.println("Ingresa a dao_Administrar_urs");
     }
-         public obj_Mensaje Administar_urs(int id_acc, int id_usu,String opcion,String usuario, String nombre, String ap_p, String ap_m,int id_area, int id_perfil, String clave) {
+         public obj_Mensaje Administar_urs(String opcion,String usuario, String nombre, String ap_p, String ap_m,int id_area, int id_perfil, String clave) {
         System.out.println("---entrando a dao con opcion" +opcion);
         try {
-            String sql = "call menu_acc_usuarios(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "call menu_acc_usuarios(?,?,?,?,?,?,?,?,?,?,?)";
             stmt = prepareCall(sql);
             
-            stmt.setInt(1, id_acc);
-            stmt.setInt(2, id_usu);
-            stmt.setString(3, opcion);
-            stmt.setString(4, usuario );
-            stmt.setString(5, nombre);
-            stmt.setString(6, ap_p );
-            stmt.setString(7, ap_m);
-            stmt.setInt(8, id_area);
-            stmt.setInt(9, id_perfil);
-            stmt.setString(10, clave);
+           
+            stmt.setString(1, opcion);
+            stmt.setString(2, usuario );
+            stmt.setString(3, nombre);
+            stmt.setString(4, ap_p );
+            stmt.setString(5, ap_m);
+            stmt.setInt(6, id_area);
+            stmt.setInt(7, id_perfil);
+            stmt.setString(8, clave);
             
 
+            stmt.registerOutParameter(9, java.sql.Types.VARCHAR);
+            stmt.registerOutParameter(10, java.sql.Types.VARCHAR);
             stmt.registerOutParameter(11, java.sql.Types.VARCHAR);
-            stmt.registerOutParameter(12, java.sql.Types.VARCHAR);
-            stmt.registerOutParameter(13, java.sql.Types.VARCHAR);
             stmt.execute();
 
             obj_Mensaje msj = new obj_Mensaje();
-            msj.setMensaje(stmt.getString(11));
-            msj.setDescripcion(stmt.getString(12));
-            msj.setTipo(stmt.getBoolean(13));
+            msj.setMensaje(stmt.getString(9));
+            msj.setDescripcion(stmt.getString(10));
+            msj.setTipo(stmt.getBoolean(11));
             return msj;
         
         }catch (Exception ex){
@@ -73,8 +72,13 @@ public class dao_Administrar_usr extends DataAccessObject {
 	Obj_Admin_usuario admUser = null;
         List<Obj_Admin_usuario> usuarioslista = new ArrayList<>();
         
-        String sql = "SELECT id,nombre_usuario, nombre, apellido_paterno, apellido_materno, id_area, area,id_perfil, perfil FROM vw_acc_usuario";
-       
+       String sql = "SELECT i.*, cc.usuario, cc.id_perfil, a.nombre AS area, p.nombre AS perfil " +
+             "FROM cat_inf_usuario i " +
+             "JOIN cat_acc_usuario cc ON i.id_usuario = cc.id_usuario " +
+             "JOIN cat_areas a ON i.id_area = a.id_area " +
+             "JOIN cat_perfiles p ON cc.id_perfil = p.id_perfil " +
+             "WHERE i.estatus = 'A'";
+
         try {
         //conexion
         stmt = prepareStatement(sql);
@@ -84,12 +88,11 @@ public class dao_Administrar_usr extends DataAccessObject {
         while(rs.next()){
 
             admUser = new Obj_Admin_usuario();
-            admUser.setId_usu(rs.getString("id"));
             //admUser.setOpcion(rs.getString("opcion"));
-            admUser.setUsuario(rs.getString("nombre_usuario"));
+            admUser.setUsuario(rs.getString("usuario"));
             admUser.setNombre(rs.getString("nombre"));
-            admUser.setAp_p(rs.getString("apellido_paterno"));
-            admUser.setAp_m(rs.getString("apellido_materno"));
+            admUser.setAp_p(rs.getString("apaterno"));
+            admUser.setAp_m(rs.getString("amaterno"));
             admUser.setId_area(rs.getString("id_area"));
             admUser.setNombre_area(rs.getString("area"));
             admUser.setId_perfil(rs.getString("id_perfil"));
@@ -107,5 +110,9 @@ public class dao_Administrar_usr extends DataAccessObject {
            
             return null;
         }
+    }
+
+    public obj_Mensaje Administar_urs(String id_acc, String id_usu, String string, String usuario, String nombre, String ap_p, String ap_m, int id_area_int, int id_perfil_int, String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
