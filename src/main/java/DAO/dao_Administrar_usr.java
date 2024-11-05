@@ -26,10 +26,10 @@ public class dao_Administrar_usr extends DataAccessObject {
         super();
         System.out.println("Ingresa a dao_Administrar_urs");
     }
-         public obj_Mensaje Administar_urs(String opcion,String usuario, String nombre, String ap_p, String ap_m,int id_area, int id_perfil, String clave) {
+         public obj_Mensaje Administar_urs(String opcion,String usuario, String nombre, String ap_p, String ap_m,int id_area, String email, int id_perfil, String clave) {
         System.out.println("---entrando a dao con opcion" +opcion);
         try {
-            String sql = "call menu_acc_usuarios(?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "call menu_acc_usuarios(?,?,?,?,?,?,?,?,?,?,?,?)";
             stmt = prepareCall(sql);
             
            
@@ -39,19 +39,20 @@ public class dao_Administrar_usr extends DataAccessObject {
             stmt.setString(4, ap_p );
             stmt.setString(5, ap_m);
             stmt.setInt(6, id_area);
-            stmt.setInt(7, id_perfil);
-            stmt.setString(8, clave);
+            stmt.setString(7, email);
+            stmt.setInt(8, id_perfil);
+            stmt.setString(9, clave);
             
 
-            stmt.registerOutParameter(9, java.sql.Types.VARCHAR);
             stmt.registerOutParameter(10, java.sql.Types.VARCHAR);
             stmt.registerOutParameter(11, java.sql.Types.VARCHAR);
+            stmt.registerOutParameter(12, java.sql.Types.VARCHAR);
             stmt.execute();
 
             obj_Mensaje msj = new obj_Mensaje();
-            msj.setMensaje(stmt.getString(9));
-            msj.setDescripcion(stmt.getString(10));
-            msj.setTipo(stmt.getBoolean(11));
+            msj.setMensaje(stmt.getString(10));
+            msj.setDescripcion(stmt.getString(11));
+            msj.setTipo(stmt.getBoolean(12));
             return msj;
         
         }catch (Exception ex){
@@ -72,12 +73,13 @@ public class dao_Administrar_usr extends DataAccessObject {
 	Obj_Admin_usuario admUser = null;
         List<Obj_Admin_usuario> usuarioslista = new ArrayList<>();
         
-       String sql = "SELECT i.*, cc.usuario, cc.id_perfil, a.nombre AS area, p.nombre AS perfil " +
+        String sql = "SELECT i.*, cc.usuario, cc.id_perfil, a.nombre , p.nombre  " +
              "FROM cat_inf_usuario i " +
              "JOIN cat_acc_usuario cc ON i.id_usuario = cc.id_usuario " +
              "JOIN cat_areas a ON i.id_area = a.id_area " +
              "JOIN cat_perfiles p ON cc.id_perfil = p.id_perfil " +
              "WHERE i.estatus = 'A'";
+
 
         try {
         //conexion
@@ -94,10 +96,11 @@ public class dao_Administrar_usr extends DataAccessObject {
             admUser.setAp_p(rs.getString("apaterno"));
             admUser.setAp_m(rs.getString("amaterno"));
             admUser.setId_area(rs.getString("id_area"));
-            admUser.setNombre_area(rs.getString("area"));
+            admUser.setNombre_area(rs.getString("a.nombre"));
+            admUser.setEmail(rs.getString("correo"));
             admUser.setId_perfil(rs.getString("id_perfil"));
             //admUser.setClave(rs.getString("clave"));
-            admUser.setNombre_perfil(rs.getString("perfil"));
+            admUser.setNombre_perfil(rs.getString("p.nombre"));
             usuarioslista.add(admUser);
           }
             
