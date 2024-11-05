@@ -62,12 +62,21 @@ public class Srv_Administrar_usr extends HttpServlet {
         String opcion = request.getParameter("action");
         System.out.println("opcion resivida: "  +opcion);
         String usuario = request.getParameter("usuario");
+            System.out.println("usuario" +usuario);
         String nombre = request.getParameter("nombre");
+            System.out.println("nombre"+nombre);
         String ap_p = request.getParameter("apaterno");
+            System.out.println("apellido paterno"+ap_p);
         String ap_m = request.getParameter("amaterno");
+            System.out.println("apellido materno"+ap_m);
+        String email = request.getParameter("correo");
+            System.out.println("correo"+email);
         String id_area = request.getParameter("id_area");
+            System.out.println("id_area"+id_area);
         String id_perfil = request.getParameter("id_perfil");
+            System.out.println("id_perfil"+id_perfil);
         String clave = request.getParameter("clave");
+        
 
         
         //extraer el usuario del login:
@@ -105,18 +114,17 @@ public class Srv_Administrar_usr extends HttpServlet {
         switch(opcion){
             case "101":
                 //respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs("101", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
+                respuesta = procedimiento.Administar_urs("101", usuario, nombre, ap_p, ap_m, id_area_int, email, id_perfil_int, clave);
                 break;
             case "102":
-                
                 System.out.println("hola melanyyyy");
                 //respuesta = procedimiento.Administar_urs( "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
-                respuesta = procedimiento.Administar_urs("102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
+                respuesta = procedimiento.Administar_urs("102", usuario, nombre, ap_p, ap_m, id_area_int,email, id_perfil_int, null);
                 break;
             case "103":
                 System.out.println("entra a baja-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 //respuesta = procedimiento.Administar_urs( "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs("103", usuario, nombre, ap_p, ap_m, 0, 0, clave);
+                respuesta = procedimiento.Administar_urs("103", usuario, nombre, ap_p, ap_m, 0,email, 0, clave);
                 System.out.println("titulo" + respuesta.getMensaje());
                 System.out.println("descripcion"+ respuesta.getDescripcion());
                 break;
@@ -137,12 +145,12 @@ public class Srv_Administrar_usr extends HttpServlet {
         
         if(respuesta.getTipo()){
             session.setAttribute("mensaje", respuesta);
-            request.getRequestDispatcher("AdminUsuarios.jsp").forward(request, response);            
+            request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);            
         }else{
             System.out.println("No se puede procesar la solicitud");
             System.out.println("Descripcion" + respuesta.getDescripcion());
              request.setAttribute("mensaje", respuesta);
-             request.getRequestDispatcher("AdminUsuarios.jsp").forward(request, response);
+             request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
         }
 
         }catch(Exception ex){
