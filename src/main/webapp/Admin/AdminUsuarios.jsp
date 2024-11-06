@@ -24,9 +24,10 @@
    listaAreas = (List<obj_Area>) request.getAttribute("listaAreas");
    listaPerfil = (List<obj_Perfil>) request.getAttribute("listaPerfil");
    %>
-   
+ 
+ 
    <% 
-    mensaje = (obj_Mensaje) request.getAttribute("mensaje");
+    mensaje = (obj_Mensaje) session.getAttribute("mensaje");
     if (mensaje != null) {
         System.out.println("Hay un mensaje en mensaje.jsp");
         if(mensaje.getTipo() == true) { 
@@ -36,16 +37,17 @@
                 <% out.print(mensaje.getDescripcion()); %>
             </div>
 <%      } else { %>
-            <div id="mensajeAlert" class="alert alert-danger" role="alert" style="width:30rem; margin: 0 auto;margin-top: 3rem;">
-                <% out.print(mensaje.getTitulo()); %>
-                <% out.print(mensaje.getDescripcion()); %>
-            </div>
+
+
+<div id="mensajeAlert" class="alert alert-danger" role="alert" style="width:30rem; margin: 0 auto;margin-top: 3rem;"><% out.print(mensaje.getTitulo()); %>
+    <% out.print(mensaje.getDescripcion()); %></div>
+    
 <%      }
     }
 %>
-   <% 
+<% 
 System.out.print("----------------------------------------Entrendo al JSP de Admin----------------------------");
-   %>
+%>
 
 
 <style>
@@ -126,7 +128,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     <div class="row mb-4">
            <div class="col">
     <div data-mdb-input-init class="form-outline" style="background-color: white;">
-        <input type="text" style="font-weight: bold;" id="usuario" name="usuario" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" readonly/>
+        <input type="text" style="font-weight: bold;" id="usuario" name="usuario" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()"/>
         <label class="form-label" for="usuario">USUARIO</label>
     </div>
            </div>
@@ -277,6 +279,21 @@ if(admuser != null && admuser.size() > 0){
 <% } %>
                     </tbody>
                 </table>
+            <!--<center>
+                    <br>
+                    <h3 class="text-center metro" style="color:#970000;">
+                        <b> 
+                            N O  <span style="padding-left:40px;"> </span> 
+                            H A Y <span style="padding-left:40px;"> </span> 
+                            R E G I S T R O S
+                        </b>
+                    </h3>
+                </center> -->
+          </div>
+    </div>
+</div>
+  <%}else{%>
+<!-- <h3>NO HAY USUARIOS</h3> -->
                 <center>
                     <br>
                     <h3 class="text-center metro" style="color:#970000;">
@@ -287,11 +304,6 @@ if(admuser != null && admuser.size() > 0){
                         </b>
                     </h3>
                 </center>
-          </div>
-    </div>
-</div>
-  <%}else{%>
-<!-- <h3>NO HAY USUARIOS</h3> -->
 <%}%>
                   
 <!-- hasta aqui pertence a la tabla  -->
@@ -411,6 +423,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Enfocar los campos de formulario en el orden deseado
             formulario.querySelector("#nombre").focus();
+            formulario.querySelector("#apellido_paterno").focus();
+            formulario.querySelector("#apellido_materno").focus();
+            formulario.querySelector("#email").focus();
+            formulario.querySelector("#area").focus();
+            formulario.querySelector("#perfil").focus();
+            formulario.querySelector("#usuario").focus();
+
         }
     });
 
