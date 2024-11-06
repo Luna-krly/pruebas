@@ -143,7 +143,7 @@ public class Srv_Administrar_usr extends HttpServlet {
         admuser = daoLista.Listar();
         request.setAttribute("lista", admuser);
         
-        if(respuesta.getTipo()){
+       /* if(respuesta.getTipo()){
             session.setAttribute("mensaje", respuesta);
             request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);            
         }else{
@@ -151,8 +151,27 @@ public class Srv_Administrar_usr extends HttpServlet {
             System.out.println("Descripcion" + respuesta.getDescripcion());
              request.setAttribute("mensaje", respuesta);
              request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
+        }*/
+       // Dependiendo de si necesitas el mensaje en la sesión o solo en el request
+    
+    if (respuesta != null && respuesta.getTipo() != null) {
+        //asegurar que titulo y descripcion no manden un null
+        if(respuesta.getTitulo() == null){
+            respuesta.setTitulo(""); //asignamos un valor vacio si es null
         }
-
+        if(respuesta.getDescripcion() == null){
+            respuesta.setDescripcion(""); //aseginacion de valor vacio en caso de ser null
+        }
+    if (respuesta.getTipo()) {
+        session.setAttribute("mensaje", respuesta); // Usar session para persistir el mensaje
+        request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
+    } else {
+        System.out.println("No se puede procesar la solicitud");
+        System.out.println("Descripcion: " + respuesta.getDescripcion());
+        session.setAttribute("mensaje", respuesta); // Configura en session si quieres que persista tras la redirección
+        request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
+    }
+}
         }catch(Exception ex){
           obj_Mensaje  respuesta = new obj_Mensaje ();
           respuesta.setMensaje("Error: no se pudo entrar" + ex);

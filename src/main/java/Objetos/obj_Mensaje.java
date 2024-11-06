@@ -17,6 +17,7 @@ public class obj_Mensaje {
     private String descripcion;
     private Boolean tipo;
 
+
     public String getMensaje() {
         return mensaje;
     }
