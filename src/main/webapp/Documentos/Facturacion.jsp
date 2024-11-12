@@ -70,6 +70,8 @@
         font-size: 11.5px;
         font-weight: bold;
     }
+    
+    
 </style>
 
 <script src="JS\facturcionElectronica_catalogo.js"></script>
@@ -1209,6 +1211,10 @@
                     }
                 }
             </script>
+            
+            
+            
+            
             <form id="formulario_impresion" >
                 <div>
                     <input hidden="true" type="text" value="" id="folio_impresion" name="folio_impresion" class="form-control" style="text-transform: uppercase;" required/>
@@ -1277,25 +1283,37 @@
                 });
             });
         </script>
+        
+   <!-- estilo para select -->
+        <style>
+      .form-select:disabled,
+      .form-select-sm:disabled {
+        background-color: gainsboro !important;
+        
+}
 
+</style>
 
 
         <div class="tab-pane fade" id="ex3-tabs-4" role="tabpanel" aria-labelledby="ex3-tab-4">
             <h5 class="stc" style="text-align: center;">REPORTE DE FACTURAS</h5>
             <hr>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">REPORTE DE FACTURA</label>
+                <input class="form-check-input btn-azul" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label fs-6" for="flexSwitchCheckDefault" style="font-weight: bold;color:black;">[ <span id="spanNoCancelar" style="color:#BA0000;">NO</span> <span id="spanSiCancelar" style="color:#007505;" hidden>SI</span> ] REPORTE DE FACTURA</label>
             </div>
             <br>
             <div class="row mb-4">
                 <div class="col">
-                    <select data-mdb-select-init class="form-select" aria-label="Default select example" style="font-size: 105%;" name="serfact2" id="serfact2" disabled>
-                        <option selected>SERIE DE FACTURA</option>
-                        <option value="1">Op 1</option>
-                        <option value="2">Op 2</option>
-                    </select>
-                </div>
+                 <div class="form-outline mdb-input">
+             <select style=" font-weight: bold; background-color: gainsboro !important; font-size: 99%" disabled data-mdb-select-init id="serfact2" name="serfact2" class="form-select form-select-sm" aria-label="Default select example" onblur="this.value = this.value.trim()" required>
+                <option value="" disabled selected style="display: none;"></option>
+                 <option value="1">Op 1</option>
+                 <option value="2">Op 2</option>
+             </select>
+    <label class="form-label" for="textestatus">SERIE DE FACTURA</label>
+</div>
+               </div>     
                 <div class="col">
                     <div data-mdb-input-init class="form-outline" style="background-color: white;">
                         <input type="date" name="ranfch" id="ranfch1" disabled class="form-control "/>
@@ -1310,23 +1328,28 @@
                 </div>
             </div>
             <hr>
+            <div class="form-check form-switch">
+                    <input class="form-check-input btn-azul" type="checkbox" role="switch"  name="repfac" id="repfac2">
+                    <label class="form-check-label fs-6" for="repfac" style="font-weight: bold;color:black;">[ <span id="spanNo" style="color:#BA0000;">NO</span> <span id="spanSi" style="color:#007505;" hidden>SI</span> ] REPORTE DE FACTURA ESTATUS</label>
+                </div>
             <div class="row mb-4">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch"  name="repfac" id="repfac2">
-                    <label class="form-check-label" for="repfac">ESTATUS</label>
-                </div>
-
+                <!-- <div class="form-check form-switch">
+                    <input class="form-check-input btn-azul" type="checkbox" role="switch"  name="repfac" id="repfac2">
+                    <label class="form-check-label fs-6" for="repfac" style="font-weight: bold;color:black;">[ <span id="spanNo" style="color:#BA0000;">NO</span> <span id="spanSi" style="color:#007505;" hidden>SI</span>] REPORTE DE FACTURAESTATUS</label>
+                </div> -->
                 <div class="col">
-                    <br>
-                    <select data-mdb-select-init class="form-select" aria-label="Default select example" id="estfa1" name="estfa" value="" placeholder="Estatus" disabled style="font-size: 105%;">
-                        <option selected>ESTATUS</option>
-                        <option value="1">X</option>
-                        <option value="2">A</option>
-                        <option value="3">G</option>
-                        <option value="4">I</option>
-                        <option value="5">C</option>
-                    </select>
-                </div>
+                    <div class="form-outline mdb-input">
+                        <select class="form-select form-select-sm" id="estfa1" name="estfa" style="font-weight: bold; background-color: gainsboro !important; font-size: 99%" aria-label="Default select example" onblur="this.value = this.value.trim()" required disabled>
+                           <option value="" disabled selected style="display: none;"></option>
+                           <option value="1">X</option>
+                           <option value="2">A</option>
+                           <option value="3">G</option>
+                           <option value="4">I</option>
+                           <option value="5">C</option>
+                         </select>
+                        <label class="form-label" for="textestatus">ESTATUS</label>
+                  </div>
+                 </div>
                 <div class="col">
                     <p>
                         X = CAPTURADA
@@ -1350,50 +1373,58 @@
             <br>
             <hr>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" name="pdffac" id="repfac3">
-                <label class="form-check-label" for="pdffac">FACTURA PDF (REVISIÓN DE FACTURA)</label>
+                <input class="form-check-input btn-azul" type="checkbox" role="switch" name="pdffac" id="repfac3">
+                <label class="form-check-label fs-6" for="pdffac" style="font-weight: bold;color:black;">[ <span id="spanNoactiva" style="color:#BA0000;">NO</span> <span id="spanSiactiva" style="color:#007505;" hidden>SI</span> ] FACTURA PDF (REVISIÓN DE FACTURA)</label>
             </div>
             <br>
             <div class="row mb-4">
                 <div class="col">
                     <div data-mdb-input-init class="form-outline" style="background-color: white;">
-                        <input type="text" id="nfactr1" name="nfactr" value="" placeholder="N. Factura" disabled class="form-control "/>
-                        <label class="form-label" for="nfactr">No. FACTURA</label>
+                        <input type="text"name="nfactr" id="nfactr1" disabled class="form-control "/>
+                        <label class="form-label" for="ranfch">No. FACTURA</label>
                     </div>
                 </div>
+               
                 <div class="col">
-                    <select data-mdb-select-init class="form-select" name="serfact3" id="serfact3" disabled aria-label="Default select example" style="font-size: 105%;">
-                        <option selected>SERIE DE FACTURA</option>
+                    
+                      <div class="form-outline mdb-input ">
+                        <select style="font-size: 101%;font-weight:bold; background-color: gainsboro !important; " id="serfact3" name="serfact3" class="form-select form-select-sm " aria-label="Default select example" onblur="this.value = this.value.trim()" required disabled>
+                        <option value="" disabled selected style="display: none;" ></option>
                         <option value="1">Op 1</option>
-                        <option value="2">Op 2</option>
-                    </select>
-                </div>
+                        <option value="2">Op 2</option>  
+                           </select>
+                        <label class="form-label" for="textestatus">SERIE DE FACTURA</label>
+                  </div>
             </div>
+                </div>
             <br>
             <hr>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">REGENERA FACTURA O COMPROBANTE DE PAGO (SOLO NO TIMBRADAS)</label>
+                <input class="form-check-input btn-azul" type="checkbox" role="switch" id="switch3">
+                <label class="form-check-label fs-6" for="switch3" style="font-weight: bold;color:black;"> [ <span id="spanNoaccion" style="color:#BA0000;">NO</span> <span id="spanSiaccion" style="color:#007505;" hidden>SI</span> ] REGENERA FACTURA O COMPROBANTE DE PAGO (SOLO NO TIMBRADAS)</label>
             </div>
             <br>
             <div class="row mb-4">
                 <div class="col">
-                    <div data-mdb-input-init class="form-outline" style="background-color: white;">
-                        <input type="text" id="form6Example1" class="form-control "/>
-                        <label class="form-label" for="form6Example1">No. DE DOCMENTO</label>
+                    <div data-mdb-input-init class="form-outline">
+                        <input type="text" id="numdocumento" class="form-control " disabled=""/>
+                        <label class="form-label" for="numdocumento">No. DE DOCMENTO</label>
                     </div>
                 </div>
                 <div class="col">
-                    <select data-mdb-select-init class="form-select" aria-label="Default select example" style="font-size: 105%;">
-                        <option selected>SERIE</option>
-                        <option value="1">Op 1</option>
-                        <option value="2">Op 2</option>
-                    </select>
+                  <div class="form-outline mdb-input">
+            <select class="form-select form-select-sm" id="serie1" name="serie1" style="font-weight: bold; background-color: gainsboro !important; font-size: 99%" aria-label="Default select example" onblur="this.value = this.value.trim()" required disabled>
+                <option value="" disabled selected style="display: none;"></option>
+                 <option value="1">Op 1</option>
+                 <option value="2">Op 2</option>
+             </select>
+    <label class="form-label" for="textestatus">SERIE</label>
+</div>
                 </div>
                 <div class="col">
                     <div data-mdb-input-init class="form-outline" style="background-color: white;">
-                        <input type="password" id="form6Example1" class="form-control "/>
-                        <label class="form-label" for="form6Example1">CONTRASEÑA</label>
+                        <input type="password" id="contra" class="form-control " disabled=""/>
+                        <label class="form-label" for="contra">CONTRASEÑA</label>
                     </div>
                 </div>
             </div>
@@ -1403,9 +1434,78 @@
     <br>
 
 </main>
+                <!-- SCRIPT PARA SWITCHS -->
+ <script>
+function handleCheckboxChange(checkboxId, spanNoId, spanSiId, elemsToManage) {
+    const checkbox = document.getElementById(checkboxId);
+    const spanNo = document.getElementById(spanNoId);
+    const spanSi = document.getElementById(spanSiId);
+
+    checkbox.addEventListener('change', function() {
+        console.log(`Checkbox "${checkboxId}" changed.`);
+        const enable = this.checked;
+        spanNo.hidden = enable;
+        spanSi.hidden = !enable;
+
+        elemsToManage.forEach(id => {
+            const elem = document.getElementById(id);
+            elem.disabled = !enable;
+            elem.required = enable;
+            elem.value = enable ? elem.value : ''; // Restablecer el valor si está deshabilitado
+            // Cambiar color de fondo
+            if (elem.classList.contains('form-select') || elem.classList.contains('form-select-sm') || elem.classList.contains('form-control')) {
+                elem.style.backgroundColor = enable ? "white" : "gainsboro";
+            }
+        });
+    });
+}
+
+// Llamadas para manejar los checkboxes específicos
+handleCheckboxChange('flexSwitchCheckDefault', 'spanNoCancelar', 'spanSiCancelar', ['serfact2', 'ranfch1', 'ranfch2']);
+handleCheckboxChange('repfac2', 'spanNo', 'spanSi', ['estfa1']);
+handleCheckboxChange('repfac3', 'spanNoactiva', 'spanSiactiva', ['nfactr1', 'serfact3']);
+handleCheckboxChange('switch3', 'spanNoaccion', 'spanSiaccion', ['numdocumento', 'serie1', 'contra']);
 
 
+// Función para manejar la activación y cancelación de otros checkboxes cuando uno está activo
+function handleClick(checkboxId, elemsToManage, checkboxesToDisable) {
+    document.getElementById(checkboxId).addEventListener('click', function() {
+        const isChecked = this.checked;
+        
+        // Habilitar/deshabilitar elementos asociados al checkbox actual
+        elemsToManage.forEach(id => {
+            let elem = document.getElementById(id);
+            elem.disabled = !isChecked;
+            elem.required = isChecked;
+            
+            if (!isChecked) {
+                // Limpiar valor de los campos dependiendo del tipo de elemento
+                if (elem.tagName === 'SELECT') {
+                    elem.selectedIndex = 0;  // Restablecer al primer elemento
+                } else if (elem.tagName === 'INPUT' && (elem.type === 'text' || elem.type === 'date')) {
+                    elem.value = '';  // Borrar el valor en inputs de texto o fecha
+                }
+            }
+        });
 
+        // Deshabilitar/rehabilitar los checkboxes en checkboxesToDisable
+        checkboxesToDisable.forEach(disableId => {
+            document.getElementById(disableId).disabled = isChecked;
+            if (!isChecked) {
+                document.getElementById(disableId).checked = false; // Desmarcar si se reactiva
+            }
+        });
+    });
+}
+
+// Llamadas para manejar la lógica de activación/cancelación entre los checkboxes
+handleClick('flexSwitchCheckDefault', ['serfact2', 'ranfch1', 'ranfch2'], ['repfac2', 'repfac3','switch3']);
+handleClick('repfac2', ['estfa1'], ['flexSwitchCheckDefault', 'repfac3','switch3']);
+handleClick('repfac3', ['nfactr1', 'serfact3'], ['flexSwitchCheckDefault', 'repfac2','switch3']);
+handleClick('switch3', ['numdocumento','serie1','contra'],['flexSwitchCheckDefault', 'repfac2','repfac3']);
+
+
+</script>
 
 <script  type="text/javascript">
     //-------------------------------------------------INSERTAR EN TABLA IMPUESTOS

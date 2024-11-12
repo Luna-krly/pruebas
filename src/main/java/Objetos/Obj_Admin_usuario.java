@@ -21,11 +21,9 @@ public class Obj_Admin_usuario {
     String clave;
     String nombre_area;
     String nombre_perfil;
-    String Titulo;
-    String descripcion;
-    boolean miboolean;
+    //Quitar opciones mensaje
     String email;
-
+    String estatus;//Añadir estatus del usuario
 
     public String getOpcion() {
         return opcion;
@@ -107,30 +105,6 @@ public class Obj_Admin_usuario {
         this.nombre_perfil = nombre_perfil;
     }
 
-    public String getTitulo() {
-        return Titulo;
-    }
-
-    public void setTitulo(String Titulo) {
-        this.Titulo = Titulo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public boolean isMiboolean() {
-        return miboolean;
-    }
-
-    public void setMiboolean(boolean miboolean) {
-        this.miboolean = miboolean;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -138,9 +112,13 @@ public class Obj_Admin_usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
-    
-    
-    
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
 }

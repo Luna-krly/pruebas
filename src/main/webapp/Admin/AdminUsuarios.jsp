@@ -51,7 +51,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
 
 
 <style>
-    .centrado-verticalmente {
+  .centrado-verticalmente {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -75,7 +75,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     .form-check-input:focus {
         box-shadow: 0 0 0 0.25rem #ff5000 !important;
     }
-    
+
     .fila-seleccionada {
         background-color: #ff5000 !important;
         color: white; /* Cambia el color del texto si es necesario */
@@ -106,12 +106,10 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
             display: none;
         }
     }
-
-
-
     input, textarea{
         text-transform: uppercase;
-    }  
+    }
+
 </style>
 
 <!-- Cuerpo del catalogo -->
@@ -133,20 +131,20 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     </div>
            </div>
         <div class="col">
-             <div data-mdb-input-init class="form-outline mdb-input" style="background-color: white;">
+             <div data-mdb-input-init class="form-outline" style="background-color: white;">
                 <input type="text" style="font-weight: bold;" id="nombre" name="nombre" class="form-control"  pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." style="font-weight: bold;" onblur="this.value = this.value.trim()" required />
                 <label class="form-label" for="nombre">NOMBRE</label>
              </div>
         </div>
         
         <div class="col mb-3">
-            <div data-mdb-input-init class="form-outline mdb-input" style="background-color: white;">
+            <div data-mdb-input-init class="form-outline" style="background-color: white;">
                 <input type="text" style="font-weight: bold;" id="apellido_paterno" name="apaterno" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
                 <label class="form-label" for="apellido_paterno">APELLIDO PATERNO</label>
             </div>
         </div>
         <div class="col mb-3">
-            <div data-mdb-input-init class="form-outline mdb-input" style="background-color: white;">
+            <div data-mdb-input-init class="form-outline " style="background-color: white;">
                 <input type="text" style="font-weight: bold;" id="apellido_materno" name="amaterno" class="form-control" pattern="^(?!\s)[^\s]+(?:\s[^\s]+)*(?<!\s)$" title="El campo debe contener solo letras y no espacios al principio o al final." onblur="this.value = this.value.trim()" required/>
                 <label class="form-label" for="apellido_materno">APELLIDO MATERNO</label>
             </div>
@@ -162,8 +160,8 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     <!-- Email input -->
     <!-- AQUI IRAN LOS SELECT DE AREA Y PERFIL ASI COMO EL INPUT DE USUARIO-->
      <div class="row mb-4">
-         <div class="col">
-               <div class="form-outline mdb-input">
+         <div class="col">  
+   <div class="form-outline mdb-input">
                          <select style="font-weight: bold;" style="font-weight: bold;" value="" id="area" name="id_area" class="form-select form-select-sm" aria-label="Default select example" required>
                           <option value="" disabled selected style="display: none;" ></option>
                      <c:forEach var="area" items="${listaAreas}">
@@ -174,7 +172,7 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
    </div>
 </div>
     <div class="col">
-             <div class="form-outline mdb-input">
+             <div data-mdb-input-init class="form-outline mdb-input">
                           <select style="font-weight: bold;" style="font-weight: bold;" value="" id="perfil" name="id_perfil" class="form-select form-select-sm" aria-label="Default select example" required>
                               <option value="" disabled selected style="display: none;" ></option>
                                 <c:forEach var="perfil" items="${listaPerfil}">
@@ -197,6 +195,10 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
                 <i class="fas fa-pen-to-square"></i>
                 <span class="btn-text">MODIFICAR</span>
             </button>
+             <button type="submit" id="ALTA" name="action" value="104"style="display: none;color:white; background-color: #0370A7;  margin-top: 2rem; margin-bottom: 2rem; display:none;" class="btn btn-primary btn-sm btn-rounded" data-mdb-ripple-init data-bs-toggle="tooltip" data-bs-placement="top" title="ALTA">
+                <i class="fas fa-pen-to-square"></i>
+                <span class="btn-text">ALTA</span>
+            </button>
             <button type="submit" id="Estatus" name="action" value="103" style="display: none; color:white; background-color: #A70303;  margin-top: 2rem; margin-bottom: 2rem; display:none;" class="btn btn-danger btn-sm btn-rounded" data-mdb-ripple-init data-bs-toggle="tooltip" data-bs-placement="top" title="ELIMINAR">
                 <i class="fas fa-trash"></i>
                 <span class="btn-text">ELIMINAR</span>
@@ -205,42 +207,29 @@ System.out.print("----------------------------------------Entrendo al JSP de Adm
     <i class="fas fa-eraser"></i>
     <span class="btn-text">LIMPIAR</span>
 </button>
-
         </div>
         <!-- finaliza seccion de botones -->
 </form>
-    <!-- Input de BÃºsqueda y BotÃ³n Imprimir -->
-    <div class="row justify-content-center mb-3">
+
+   <div class="row justify-content-center mb-3 d-felx">
         <div class="col-md-3">
             <div data-mdb-input-init class="form-outline fontformulario">
-                <input type="text" id="busqueda" class="form-control form-control-sm" style="font-weight: bold; background-color: white; width: 800px;" oninput="filterTable()"/>
+                <input type="text" id="busqueda" class="form-control form-control-sm" style="font-weight: bold;  width: 80%;" oninput="filterTable()"/>
                 <label class="form-label" for="busqueda">BUSCAR</label>
             </div>
         </div>
     </div>
-    <!-- BotÃ³n Imprimir o Exportar si es necesario -->
-    <!--<div class="col-md-4" style="text-align: left;">
-            <%---TODO: AGREGAR EL VALUE CORRESPONDIENTE AL REPORTE ---%>
-            <form action="${pageContext.request.contextPath}/Reportes/reportes_catalogos.jsp" id="formulario-impresion" method="post" target="_blank">
-                <th><button type="submit" name="action" value="201" title="IMPRIMIR EN PDF" class="btn btn-sm btn-rounded stc" style="color:white; background-color: purple;" data-mdb-ripple-init>
-                        <i class="fas fa-print"></i>
-                        <span class="d-none d-sm-inline">IMPRIMIR EN PDF</span> </button></th>
-            </form>
-            <button type="button" id="imprimir-btn" title="EXPORTAR A EXCEL" class="btn btn-outline-success btn-sm btn-rounded stc" data-mdb-ripple-init  data-mdb-ripple-color="dark" onclick="exportTableToExcel('concepto-table', 'conceptos.xls')" hidden="true">
-                <i class="fas fa-file-excel"></i>
-                <span class="d-none d-sm-inline">EXPORTAR A EXCEL</span>
-            </button>
-    </div> -->  
-<!--Termina aquÃ­ boton de busqueda e impresion -->
+  
+
 <%
 if(admuser != null && admuser.size() > 0){
 %>
 
 <!-- esto pertence a la tabla  -->
-    <div class="row d-flex justify-content-center p-3">
-    <div class="text-center" style="position: relative; width: 100%;">
-        <div class="table-responsive" style="height: 270px;">
-            <table id="concepto-table" class="fontformulario table table-hover table-bordered table-sm" style="font-size: 90%;background-color: #fff;">
+   <div class="row d-flex justify-content-center p-3">
+        <div class="text-center" style="position: relative; width: 100%;">
+            <div class="table-responsive" style="height: 270px;">
+                <table id="concepto-table" class="fontformulario table table-hover table-bordered table-sm" style="font-size: 90%;background-color: #fff;">
                     <thead class="table-secondary">
                         <tr>
                             <th class="d-none">*</th>
@@ -253,59 +242,51 @@ if(admuser != null && admuser.size() > 0){
                             <th class="fw-bold" style="display: none;">PERFIL</th>
                             <th class="fw-bold">NOMBRE PERFIL</th>
                             <th class="fw-bold">USUARIO</th>
+                            <th class="fw-bold">ESTATUS</th>
                         </tr>
                     </thead>
                     <tbody id="datos" style="font-size: 75%;">
-<%
-   for (int i = 0; i < admuser.size(); i++) {
-    admin = admuser.get(i);
-    System.out.println("OBJETO"+admin);
-%>
-                        <tr onclick="seleccionarFila(this)">
-                        <td><%out.print(admin.getNombre());%></td>
-                        <td><%out.print(admin.getAp_p());%></td>
-                        <td><%out.print(admin.getAp_m());%></td>
-                        <td><%out.print(admin.getEmail());%></td>
-                        <td style="display: none;"><%out.print(admin.getId_area());%></td>
-                        <td style="display: none;"><%out.print(admin.getId_perfil());%></td>
-                        <td><%out.print(admin.getNombre_area());%></td>
-                        <td><%out.print(admin.getNombre_perfil());%></td>
-                        <td><%out.print(admin.getUsuario());%></td>
+                        <%
+                           for (int i = 0; i < admuser.size(); i++) {
+                            admin = admuser.get(i);
+                        %>
+                        <tr>
+                            <td><%out.print(admin.getNombre());%></td>
+                            <td><%out.print(admin.getAp_p());%></td>
+                            <td><%out.print(admin.getAp_m());%></td>
+                            <td><%out.print(admin.getEmail());%></td>
+                            <td style="display: none;"><%out.print(admin.getId_area());%></td>
+                            <td style="display: none;"><%out.print(admin.getId_perfil());%></td>
+                            <td><%out.print(admin.getNombre_area());%></td>
+                            <td><%out.print(admin.getNombre_perfil());%></td>
+                            <td><%out.print(admin.getUsuario());%></td>
+                            <% if(admin.getEstatus().equals("A")){%>
+                            <td style="color:white; background-color: #169c00;"><%out.print(admin.getEstatus());%></td>
+                            <%}else{%>
+                            <td style="color:white; background-color: #9c1a00;"><%out.print(admin.getEstatus());%></td>
+                            <% }
+                            %>
                         </tr>
                         <% }%>  
-<%
-    if (mensaje != null && "Eliminacion Exitosa".equals(mensaje.getTitulo())) {
-%>
-<% } %>
                     </tbody>
                 </table>
-            <!--<center>
-                    <br>
-                    <h3 class="text-center metro" style="color:#970000;">
-                        <b> 
-                            N O  <span style="padding-left:40px;"> </span> 
-                            H A Y <span style="padding-left:40px;"> </span> 
-                            R E G I S T R O S
-                        </b>
-                    </h3>
-                </center> -->
-          </div>
+            </div>
+        </div>
     </div>
-</div>
-  <%}else{%>
-<!-- <h3>NO HAY USUARIOS</h3> -->
-                <center>
-                    <br>
-                    <h3 class="text-center metro" style="color:#970000;">
-                        <b> 
-                            N O  <span style="padding-left:40px;"> </span> 
-                            H A Y <span style="padding-left:40px;"> </span> 
-                            R E G I S T R O S
-                        </b>
-                    </h3>
-                </center>
-<%}%>
-                  
+    <%}else{%>
+    <!-- <h3>NO HAY USUARIOS</h3> -->
+    <center>
+        <br>
+        <h3 class="text-center metro" style="color:#970000;">
+            <b> 
+                N O  <span style="padding-left:40px;"> </span> 
+                H A Y <span style="padding-left:40px;"> </span> 
+                R E G I S T R O S
+            </b>
+        </h3>
+    </center>
+    <%}%>
+
 <!-- hasta aqui pertence a la tabla  -->
 <div class="alert fade alert-fixed alert-danger show text-center stc" id="customAlert"
      style="display:none; width: 30%; top:5%; right: 10px; left: 50%;
@@ -351,6 +332,7 @@ window.onload = function() {
         }, 2000);
     }
 };
+
 function filterTable() {
     const busqueda = document.getElementById('busqueda').value.toLowerCase();
     const rows = document.querySelectorAll('#datos tr');
@@ -391,16 +373,56 @@ document.addEventListener('DOMContentLoaded', function () {
             // Limpiar la selección previa
             if (tabla.querySelector('.selected')) {
                 tabla.querySelector('.selected').classList.remove('selected');
+                
+                
+        var usuarioField = document.getElementById('usuario');
+        var name = document.getElementById('nombre');
+        var ap_p = document.getElementById('apellido_paterno');
+        var ap_m = document.getElementById('apellido_materno');
+        var emails = document.getElementById('email');
+        var areas = document.getElementById('area');
+        var perfiles = document.getElementById('perfil');
+        usuarioField.removeAttribute('readonly'); // Elimina el atributo readonly
+        name.removeAttribute('readonly'); // Elimina el atributo readonly
+        ap_p.removeAttribute('readonly'); // Elimina el atributo readonly
+        ap_m.removeAttribute('readonly');
+        emails.removeAttribute('readonly'); //// Elimina el atributo readonly
+        areas.removeAttribute('disabled'); //// Elimina el atributo readonly
+        perfiles.removeAttribute('disabled'); //// Elimina el atributo readonly
+         
+
+        // Limpia los campos
+        usuarioField.value = ''; // Limpia el valor del campo si es necesario
+        name.value = ''; // Limpia el valor del campo si es necesario
+        ap_p.value = ''; // Limpia el valor del campo si es necesario
+        ap_m.value = ''; // Limpia el valor del campo si es necesario
+        emails.value = ''; // Limpia el valor del campo si es necesario
+        areas.value = ''; // Limpia el valor del campo si es necesario
+        perfiles.value = ''; // Limpia e
+                
+                
             }
             // Cambiar color de la fila seleccionada
             fila.classList.add("selected");
-
+            
+            // obtener valor de la fila 
+             var valor = fila.cells[9].textContent.trim();
+            
+             const btnguardar  =document.querySelector("#Guardar");
+             const btnmodificar  =document.querySelector("#Modificar");
+             const btnEstatus  =document.querySelector("#Estatus");
+             const btnalta = document.querySelector("#ALTA");
+            
+      
             // Cambiar visibilidad de botones
-            document.querySelector('#Guardar').style.display = "none";
-            document.querySelector('#Modificar').style.display = "inline-block";
-            document.querySelector('#Estatus').style.display = "inline-block";
-
-            // Obtener los datos de la fila seleccionada
+            if (valor === "A"){
+            btnguardar.style.display = "none";
+            btnmodificar.style.display = "inline-block";
+            btnEstatus.style.display = "inline-block";
+            btnalta.style.display ="none";
+            
+            
+            
             const nombre = fila.cells[0].textContent;
             const apellidoPaterno = fila.cells[1].textContent;
             const apellidoMaterno = fila.cells[2].textContent;
@@ -430,6 +452,52 @@ document.addEventListener('DOMContentLoaded', function () {
             formulario.querySelector("#perfil").focus();
             formulario.querySelector("#usuario").focus();
 
+        }else{
+            btnguardar.style.display = "none";
+            btnmodificar.style.display = "none";
+            btnEstatus.style.display = "none";
+            btnalta.style.display ="inline-block";
+            
+                
+                 // Obtener los datos de la fila seleccionada
+            const nombre = fila.cells[0].textContent;
+            const apellidoPaterno = fila.cells[1].textContent;
+            const apellidoMaterno = fila.cells[2].textContent;
+            const email = fila.cells[3].textContent;
+            const area = fila.cells[4].textContent;
+            const perfil = fila.cells[5].textContent;
+            const usuario = fila.cells[8].textContent;
+
+            // Asignar los valores a los inputs del formulario
+            formulario.querySelector("#nombre").value = nombre;
+            formulario.querySelector("#apellido_paterno").value = apellidoPaterno;
+            formulario.querySelector("#apellido_materno").value = apellidoMaterno;
+            formulario.querySelector("#email").value = email;
+            formulario.querySelector("#area").value = area;
+            formulario.querySelector("#perfil").value = perfil;
+            formulario.querySelector("#usuario").value = usuario;
+
+            // Asegurar que el campo de usuario no sea modificable
+            formulario.querySelector("#nombre").setAttribute('readonly', true);
+            formulario.querySelector("#apellido_paterno").setAttribute('readonly', true);
+            formulario.querySelector("#apellido_materno").setAttribute('readonly', true);
+            formulario.querySelector("#email").setAttribute('readonly', true);
+            formulario.querySelector("#area").setAttribute('disabled', true);
+            formulario.querySelector("#perfil").setAttribute('disabled', true); 
+            formulario.querySelector("#usuario").setAttribute('readonly', true);
+
+            // Enfocar los campos de formulario en el orden deseado
+            formulario.querySelector("#nombre").focus();
+            formulario.querySelector("#apellido_paterno").focus();
+            formulario.querySelector("#apellido_materno").focus();
+            formulario.querySelector("#email").focus();
+            formulario.querySelector("#area").focus();
+            formulario.querySelector("#perfil").focus();
+            formulario.querySelector("#usuario").focus();
+
+        }
+ 
+           
         }
     });
 
@@ -442,18 +510,63 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('Guardar').style.display = 'inline-block';
         document.getElementById('Modificar').style.display = 'none';
         document.getElementById('Estatus').style.display = 'none';
+        document.getElementById('ALTA').style.display = 'none';
 
         // Limpiar la selección previa
         if (document.querySelector('.selected')) {
             document.querySelector('.selected').classList.remove('selected');
+            
+        var usuarioField = document.getElementById('usuario');
+        var name = document.getElementById('nombre');
+        var ap_p = document.getElementById('apellido_paterno');
+        var ap_m = document.getElementById('apellido_materno');
+        var emails = document.getElementById('email');
+        var areas = document.getElementById('area');
+        var perfiles = document.getElementById('perfil');
+        usuarioField.removeAttribute('readonly'); // Elimina el atributo readonly
+        name.removeAttribute('readonly'); // Elimina el atributo readonly
+        ap_p.removeAttribute('readonly'); // Elimina el atributo readonly
+        ap_m.removeAttribute('readonly'); // Elimina el atributo readonly
+        emails.removeAttribute('readonly');// Elimina el atributo readonly
+        areas.removeAttribute('disabled');// Elimina el atributo readonly
+        perfiles.removeAttribute('disabled');// Elimina el atributo readonly
+         
+
+        // Limpia el campo de usuario
+        usuarioField.value = ''; // Limpia el valor del campo si es necesario
+        name.value = ''; // Limpia el valor del campo si es necesario
+        ap_p.value = ''; // Limpia el valor del campo si es necesario
+        ap_m.value = ''; // Limpia el valor del campo si es necesario
+        emails.value = ''; // Limpia el valor del campo si es necesario
+        areas.value = ''; // Limpia el valor del campo si es necesario
+        perfiles.value = ''; // Limpia e
+            
         }
 
         // Habilitar el campo de usuario para permitir la entrada
         var usuarioField = document.getElementById('usuario');
+        var name = document.getElementById('nombre');
+        var ap_p = document.getElementById('apellido_paterno');
+        var ap_m = document.getElementById('apellido_materno');
+        var emails = document.getElementById('email');
+        var areas = document.getElementById('area');
+        var perfiles = document.getElementById('perfil');
         usuarioField.removeAttribute('readonly'); // Elimina el atributo readonly
+        name.removeAttribute('readonly'); // Elimina el atributo readonly
+        ap_p.removeAttribute('readonly'); // Elimina el atributo readonly
+        ap_m.removeAttribute('readonly'); // Elimina el atributo readonly
+        emails.removeAttribute('readonly'); // Elimina el atributo readonly
+        areas.removeAttribute('disabled');// Elimina el atributo readonly
+        perfiles.removeAttribute('disabled');
 
         // Limpia el campo de usuario
         usuarioField.value = ''; // Limpia el valor del campo si es necesario
+        name.value = ''; // Limpia el valor del campo si es necesario
+        ap_p.value = ''; // Limpia el valor del campo si es necesario
+        ap_m.value = ''; // Limpia el valor del campo si es necesario
+        emails.value = ''; // Limpia el valor del campo si es necesario
+        areas.value = ''; // Limpia el valor del campo si es necesario
+        perfiles.value = ''; // Limpia el valor del campo si es necesario
     });
 });
 

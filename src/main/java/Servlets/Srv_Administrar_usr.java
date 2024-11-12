@@ -41,147 +41,127 @@ public class Srv_Administrar_usr extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("------Entrando al Srv Administrar_usr------------");
-    
-      HttpSession session = request.getSession();
-      
-        try{
-        //conexion al dao de area
-        dao_Area areaDao = new dao_Area();
-        List<obj_Area> listaAreas = areaDao.Listar();
+
+        HttpSession session = request.getSession();
+
+          try {
+            //conexion al dao de area
+            dao_Area areaDao = new dao_Area();
+            List<obj_Area> listaAreas = areaDao.Listar();
             System.out.println("Lista de areas:" + listaAreas);
-        request.setAttribute("listaAreas", listaAreas);
-         
-        // conexion al dao de perfil 
-        dao_Perfil perfilDao = new dao_Perfil();
-         List<obj_Perfil> listaPerfil = perfilDao.listarperfil(); 
+            request.setAttribute("listaAreas", listaAreas);
+
+            // conexion al dao de perfil 
+            dao_Perfil perfilDao = new dao_Perfil();
+            List<obj_Perfil> listaPerfil = perfilDao.listarperfil();
             System.out.println("Lista de perfiles:" + listaPerfil);
-        request.setAttribute("listaPerfil", listaPerfil);
+            request.setAttribute("listaPerfil", listaPerfil);
 
-       
-        
-        String opcion = request.getParameter("action");
-        System.out.println("opcion resivida: "  +opcion);
-        String usuario = request.getParameter("usuario");
-            System.out.println("usuario" +usuario);
-        String nombre = request.getParameter("nombre");
-            System.out.println("nombre"+nombre);
-        String ap_p = request.getParameter("apaterno");
-            System.out.println("apellido paterno"+ap_p);
-        String ap_m = request.getParameter("amaterno");
-            System.out.println("apellido materno"+ap_m);
-        String email = request.getParameter("correo");
-            System.out.println("correo"+email);
-        String id_area = request.getParameter("id_area");
-            System.out.println("id_area"+id_area);
-        String id_perfil = request.getParameter("id_perfil");
-            System.out.println("id_perfil"+id_perfil);
-        String clave = request.getParameter("clave");
-        
+            String opcion = request.getParameter("action");
+            System.out.println("opcion resivida: " + opcion);
+            String usuario = request.getParameter("usuario");
+            System.out.println("usuario" + usuario);
+            String nombre = request.getParameter("nombre");
+            System.out.println("nombre" + nombre);
+            String ap_p = request.getParameter("apaterno");
+            System.out.println("apellido paterno" + ap_p);
+            String ap_m = request.getParameter("amaterno");
+            System.out.println("apellido materno" + ap_m);
+            String email = request.getParameter("correo");
+            System.out.println("correo" + email);
+            String id_area = request.getParameter("id_area");
+            System.out.println("id_area" + id_area);
+            String id_perfil = request.getParameter("id_perfil");
+            System.out.println("id_perfil" + id_perfil);
+            String clave = request.getParameter("clave");
 
-        
-        //extraer el usuario del login:
-        //String usr_alta = (String) session.getAttribute("usuarioLogueado");
+            //extraer el usuario del login:
+            //String usr_alta = (String) session.getAttribute("usuarioLogueado");
+            dao_Administrar_usr daoLista = new dao_Administrar_usr();
+            List<Obj_Admin_usuario> admuser = null;  //mandamos a llamar la clase objeto
 
+            // si no hay opcion entonces se enlistaran los usuarios
+            if (opcion == null || opcion.equals(" ")) {
+                admuser = daoLista.Listar();
+                session.setAttribute("mensaje", null);
+                request.setAttribute("lista", admuser);
+                System.out.println("Entra a opcion == null");
+                request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
+                return;
+            }
+            //crearemos el objeto de Obj_Admin_usuario con los valores del formulario
+            Obj_Admin_usuario usuarios = new Obj_Admin_usuario();
+            dao_Administrar_usr procedimiento = new dao_Administrar_usr();
+            obj_Mensaje respuesta = null;
 
-        dao_Administrar_usr daoLista = new dao_Administrar_usr();
-        List<Obj_Admin_usuario> admuser = null;  //mandamos a llamar la clase objeto
+            int id_area_int = 0;
+            int id_perfil_int = 0;
 
-        // si no hay opcion entonces se enlistaran los usuarios
-        if(opcion == null || opcion.equals(" ")){
+            if (id_area != null) {
+                id_area_int = Integer.parseInt(id_area);
+            }
+            if (id_perfil != null) {
+                id_perfil_int = Integer.parseInt(id_perfil);
+            }
+
+            //dependiendo de la opcion seleccionada, realizara la accion correspondiente
+            switch (opcion) {
+                case "101":
+                    respuesta = procedimiento.Administar_urs("101", usuario, nombre, ap_p, ap_m, id_area_int, email, id_perfil_int, clave);
+                    break;
+                case "102":
+                    respuesta = procedimiento.Administar_urs("102", usuario, nombre, ap_p, ap_m, id_area_int, email, id_perfil_int, null);
+                    break;
+                case "103":
+                    respuesta = procedimiento.Administar_urs("103", usuario, nombre, ap_p, ap_m, 0, email, 0, clave);
+                    break;
+                case "104":
+                 respuesta = procedimiento.Administar_urs("104", usuario, nombre, ap_p, ap_m, 0, email, 0, clave);
+                    break;
+
+                default:
+                    System.out.println("Opcion no valida");
+                    respuesta = new obj_Mensaje();
+                    respuesta.setMensaje("Error");
+                    respuesta.setDescripcion("Opción no válida");
+                    respuesta.setTipo(false);
+                    session.setAttribute("mensaje", null);
+                    break;
+            }
+
+            //actulizamos la lista despues de realizar la accion
             admuser = daoLista.Listar();
-            session.setAttribute("mensaje", null);
             request.setAttribute("lista", admuser);
-            System.out.println("Entra a opcion == null");
-            request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
-            return;
-        }
-        //crearemos el objeto de Obj_Admin_usuario con los valores del formulario
-        Obj_Admin_usuario usuarios = new Obj_Admin_usuario();
-        dao_Administrar_usr  procedimiento = new  dao_Administrar_usr ();
-        obj_Mensaje respuesta = null;
-        
-        int id_area_int = 0;
-        int id_perfil_int = 0;
-        
-        if(id_area!= null){
-            id_area_int = Integer.parseInt(id_area);
-        }
-        if(id_perfil!= null){
-            id_perfil_int = Integer.parseInt(id_perfil);
-        }
 
-        //dependiendo de la opcion seleccionada, realizara la accion correspondiente
-        switch(opcion){
-            case "101":
-                //respuesta = procedimiento.Administar_urs(id_area_int, id_area_int, opcion, usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs("101", usuario, nombre, ap_p, ap_m, id_area_int, email, id_perfil_int, clave);
-                break;
-            case "102":
-                System.out.println("hola melanyyyy");
-                //respuesta = procedimiento.Administar_urs( "102", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, null);
-                respuesta = procedimiento.Administar_urs("102", usuario, nombre, ap_p, ap_m, id_area_int,email, id_perfil_int, null);
-                break;
-            case "103":
-                System.out.println("entra a baja-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-                //respuesta = procedimiento.Administar_urs( "103", usuario, nombre, ap_p, ap_m, id_area_int, id_perfil_int, clave);
-                respuesta = procedimiento.Administar_urs("103", usuario, nombre, ap_p, ap_m, 0,email, 0, clave);
-                System.out.println("titulo" + respuesta.getMensaje());
-                System.out.println("descripcion"+ respuesta.getDescripcion());
-                break;
-            case "limpiar":
-               //esta accion solo redirigira para limpiar el formulario
-              session.setAttribute("mensaje", null);
-              request.getRequestDispatcher("AdminUsuarios.jsp").forward(request, response);
-              return;
-              
-              default:
-              System.out.println("Opcion no valida");
-              break;
-        }
-        
-        //actulizamos la lista despues de realizar la accion
-        admuser = daoLista.Listar();
-        request.setAttribute("lista", admuser);
-        
-       /* if(respuesta.getTipo()){
+            // Dependiendo de si necesitas el mensaje en la sesión o solo en el request
+            if (respuesta != null && respuesta.getTipo() != null) {
+                //asegurar que titulo y descripcion no manden un null
+                if (respuesta.getMensaje() == null) {
+                    respuesta.setMensaje(""); //asignamos un valor vacio si es null
+                }
+                if (respuesta.getDescripcion() == null) {
+                    respuesta.setDescripcion(""); //aseginacion de valor vacio en caso de ser null
+                }
+                if (respuesta.getTipo()) {
+                    session.setAttribute("mensaje", respuesta); // Usar session para persistir el mensaje
+                    request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
+                } else {
+                    System.out.println("No se puede procesar la solicitud");
+                    System.out.println("Descripcion: " + respuesta.getDescripcion());
+                    session.setAttribute("mensaje", respuesta); // Configura en session si quieres que persista tras la redirección
+                    request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            obj_Mensaje respuesta = new obj_Mensaje();
+            respuesta.setMensaje("Error: no se pudo entrar" + ex);
+            respuesta.setDescripcion(ex.getLocalizedMessage());
+            respuesta.setTipo(false);
             session.setAttribute("mensaje", respuesta);
-            request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);            
-        }else{
-            System.out.println("No se puede procesar la solicitud");
-            System.out.println("Descripcion" + respuesta.getDescripcion());
-             request.setAttribute("mensaje", respuesta);
-             request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
-        }*/
-       // Dependiendo de si necesitas el mensaje en la sesión o solo en el request
-    
-    if (respuesta != null && respuesta.getTipo() != null) {
-        //asegurar que titulo y descripcion no manden un null
-        if(respuesta.getTitulo() == null){
-            respuesta.setTitulo(""); //asignamos un valor vacio si es null
-        }
-        if(respuesta.getDescripcion() == null){
-            respuesta.setDescripcion(""); //aseginacion de valor vacio en caso de ser null
-        }
-    if (respuesta.getTipo()) {
-        session.setAttribute("mensaje", respuesta); // Usar session para persistir el mensaje
-        request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
-    } else {
-        System.out.println("No se puede procesar la solicitud");
-        System.out.println("Descripcion: " + respuesta.getDescripcion());
-        session.setAttribute("mensaje", respuesta); // Configura en session si quieres que persista tras la redirección
-        request.getRequestDispatcher("Admin/AdminUsuarios.jsp").forward(request, response);
-    }
-}
-        }catch(Exception ex){
-          obj_Mensaje  respuesta = new obj_Mensaje ();
-          respuesta.setMensaje("Error: no se pudo entrar" + ex);
-          respuesta.setDescripcion(ex.getLocalizedMessage());
-          respuesta.setTipo(false);
-          request.setAttribute("mensaje", respuesta);
-          request.getRequestDispatcher("Principal.jsp").forward(request, response);  
+            request.getRequestDispatcher("ErroresGenerales.jsp").forward(request, response);//Dirige a pagina de errores generales
         }
 
-      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

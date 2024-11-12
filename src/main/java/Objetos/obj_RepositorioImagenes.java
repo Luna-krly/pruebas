@@ -11,7 +11,7 @@ package Objetos;
 public class obj_RepositorioImagenes {
 
     // Ruta base para las imágenes
-    private static final String BASE_PATH = "/Facturacion/Diseño/imagen/";
+    private static final String BASE_PATH = "/pruebas/Diseño/imagen/";
 
     // Imágenes específicas
     private static final String ERROR_404 = BASE_PATH + "Error404.png";
