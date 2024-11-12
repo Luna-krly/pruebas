@@ -29,9 +29,9 @@ public class DataAccessObject {
 //    private static final String USER="usuario1"; //sa";
 //    private static final String PASSWORD="112233"; //"SS2022";
     
-    private static final String URL="jdbc:mysql://10.15.15.76:3306/facturacion?allowPublicKeyRetrieval=true&useSSL=false";
+    private static final String URL="jdbc:mysql://50.192.41.205:3306/facturacion?allowPublicKeyRetrieval=true&useSSL=false";
     private static final String USER="facturacion"; //sa";
-    private static final String PASSWORD="f4ctur4s";
+    private static final String PASSWORD="112233";
     //private Connection connection=null;
     
     //INGESAR A LA BASE DE DATOS
