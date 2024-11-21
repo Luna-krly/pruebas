@@ -226,6 +226,7 @@ if(admuser != null && admuser.size() > 0){
 %>
 
 <!-- esto pertence a la tabla  -->
+<h1>OU YEA</h1>
    <div class="row d-flex justify-content-center p-3">
         <div class="text-center" style="position: relative; width: 100%;">
             <div class="table-responsive" style="height: 270px;">
